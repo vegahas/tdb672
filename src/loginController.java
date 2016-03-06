@@ -29,6 +29,7 @@ public class loginController {
         else{
             infoText.setVisible(true);
         //}*/
+        main.showOptionsScene();
     }
 
 }
