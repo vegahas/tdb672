@@ -1,4 +1,5 @@
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 import java.io.IOException;
@@ -10,7 +11,10 @@ public class loginController {
 
     @FXML
     private TextField userName;
+    @FXML
     private TextField userID;
+    @FXML
+    private Label infoText;
 
     private Main main = new Main();
 
@@ -19,7 +23,12 @@ public class loginController {
         /*
         logikk som sjekker om brukeren godkjennes
          */
-        main.showOptionsScene();
+        /*if (checkUser(userName.getText(), userID.getText())) {
+            main.showOptionsScene();
+        }
+        else{
+            infoText.setVisible(true);
+        //}*/
     }
 
 }
