@@ -26,19 +26,25 @@ public class Manage{
     }
 
     public boolean createUser(String name){
-        String stmt = "SELECT MAX(personID) FROM person;";
+        String stmt = "SELECT MAX(personID) AS 'num' FROM person;";
         ResultSet res = dbc.getData(stmt);      //get current max id
-        int id = 0;
+        int id = -1;
         try {
             if (res.next()) {
-                id = res.getInt("personID");
+                id = res.getInt("num");
+            }else{
+                id = 0;
             }
         }catch (Exception e){
             System.out.println(e);
         }
-        id += 1;
-        stmt = "INSERT INTO person (personID, navn) VALUES ('" + id +"', '"+ name +"');";  //SQL
-        return dbc.setData(stmt);
+        if(id != -1) {
+            id += 1;
+            stmt = "INSERT INTO person (personID, navn) VALUES ('" + id + "', '" + name + "');";  //SQL
+            return dbc.setData(stmt);
+        }else{
+            return  false;
+        }
     }
 
 

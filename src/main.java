@@ -10,7 +10,7 @@ import java.io.IOException;
 /**
  * Created by Jenny on 01.03.2016.
  */
-public class Main extends Application{
+class Main extends Application{
 
     private static Stage primaryStage;
     private static BorderPane mainLayout;

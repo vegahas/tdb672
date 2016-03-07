@@ -21,24 +21,9 @@ public class Category {
     }
 
     public boolean createSub(String name, int category_ID){
-        String stmt = "SELECT MAX(ukatID) FROM ukategori;";
-        ResultSet res = dbc.getData(stmt);
-        int id = -1;
-        try{
-            if (res.next()){
-                id = res.getInt("ukatID");
-            }
-        }catch (Exception e){
-            System.out.println(e);
-        }
-        if (id != -1){
-            stmt = "INSERT INTO ukategori (ukatID, navn, katID) " +
-                    "VALUES ('" + id + "', '" + name + "', '" + category_ID + "');";
-            return dbc.setData(stmt);
-        }
-        else{
-            return false;
-        }
+        String stmt = "INSERT INTO ukategori (navn, katID) " +
+                "VALUES ('" + name + "', '" + category_ID + "');";
+        return dbc.setData(stmt);
     }
 
     public boolean deleteCat(int id){
@@ -48,23 +33,18 @@ public class Category {
     }
 
     public boolean createCat(String name){
-        String stmt = "SELECT MAX(katID) FROM kategori;";
-        ResultSet res = dbc.getData(stmt);
-        int id = -1;
-        try{
-            if (res.next()){
-                id = res.getInt("katID");
-            }
-        }catch (Exception e){
-            System.out.println(e);
-        }
-        if (id != -1){
-            stmt = "INSERT INTO ukategori (katID, navn) " +
-                    "VALUES ('" + id + "', '" + name + "');";
-            return dbc.setData(stmt);
-        }
-        else{
-            return false;
-        }
+        String stmt = "INSERT INTO kategori (navn) " +
+                "VALUES ('" + name + "');";
+        return dbc.setData(stmt);
+    }
+
+    public ResultSet getAllSubCat(){
+        String stmt = "SELECT * FROM ukategori ORDER BY navn;";
+        return dbc.getData(stmt);
+    }
+
+    public ResultSet getAllCat(){
+        String stmt = "SELECT * FROM kategori ORDER BY navn;";
+        return dbc.getData(stmt);
     }
 }

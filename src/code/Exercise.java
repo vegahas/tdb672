@@ -10,19 +10,8 @@ public class Exercise {
     }
 
     public boolean loadToDB(String name, String description, int load, int reps, int sets, int subCatID){
-        String stmt ="SELECT MAX(øvelsesID) FROM øvelse;";
-        ResultSet res = dbc.getData(stmt);
-        int id = 0;
-        try {
-            if (res.next()) {
-                id = res.getInt("øvelsesID");
-            }
-        }catch (Exception e){
-            System.out.println(e);
-        }
-        id += 1;
-        stmt = "INSERT INTO øvelse (øvelsesID, navn, beskrivelse, belastning, antall_repetisjoner, " +
-                "antall_sett, ukatID) VALUES (" + id + ", '" + name + "', '"
+        String stmt = "INSERT INTO øvelse (navn, beskrivelse, belastning, antall_repetisjoner, " +
+                "antall_sett, ukatID) VALUES ('" + name + "', '"
                 + description + "', " + load + ", " + reps + ", " + sets + ", " + subCatID + ");";
         return dbc.setData(stmt);
     }

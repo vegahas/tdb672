@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 public class GUIConnect {
     private DBConnect dbc;
     private Category category;
+    private Diary diary;
     private Exercise exercise;
     private Goals goals;
     private Manage manage;
@@ -14,6 +15,7 @@ public class GUIConnect {
     public GUIConnect(){
         this.dbc = new DBConnect();
         this.category = new Category(dbc);
+        this.diary = new Diary(dbc);
         this.exercise = new Exercise(dbc);
         this.goals = new Goals(dbc);
         this.manage = new Manage(dbc);
@@ -43,6 +45,22 @@ public class GUIConnect {
     /* Delete a subcategory */
     public boolean deleteSub(int id){
         return category.deleteSub(id);
+    }
+
+    /* Get all attributes from every category */
+    public ResultSet getAllCategory(){
+        return category.getAllCat();
+    }
+
+    /*Get all attributes from every sub-category */
+    public ResultSet getAllSubCategory(){
+        return category.getAllSubCat();
+    }
+
+/* DIARY */
+    /* Get a ResultSet-object with date, time and note. Sorted ascending by date, time */
+    public ResultSet getDiary(int person_id){
+        return diary.getDiary(person_id);
     }
 
 
