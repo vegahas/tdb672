@@ -33,5 +33,9 @@ public class loginController {
         //}*/
         main.showOptionsScene();
     }
+    @FXML
+    private void newUser() throws IOException {
+        main.showNewUserScene();
+    }
 
 }

@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.text.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
-<?import java.lang.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.layout.AnchorPane?>
-
+<?import javafx.scene.text.Font?>
 <AnchorPane minHeight="700.0" minWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.loginController">
    <children>
       <GridPane prefHeight="700.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -56,6 +53,11 @@
                   <Insets left="200.0" top="80.0" />
                </GridPane.margin>
             </Label>
+             <Button alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#newUser" text="New user" GridPane.rowIndex="3">
+                 <GridPane.margin>
+                     <Insets left="325.0" />
+                 </GridPane.margin>
+             </Button>
          </children>
       </GridPane>
    </children>

@@ -1,11 +1,14 @@
 package GUI;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+
 import java.io.IOException;
+
 /**
  * Created by Jenny on 01.03.2016.
  */
@@ -32,6 +35,12 @@ public class Main extends Application{
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
         //mainLayout.setCenter(loader.load());
+    }
+    public void showNewUserScene() throws IOException{
+        FXMLLoader loader = new FXMLLoader();
+        Parent root = loader.load(Main.class.getResource("createUserFXML.fxml"));
+        primaryStage.setScene(new Scene(root));
+        primaryStage.show();
     }
     public static void main(String[] args) {
         launch(args);
