@@ -1,3 +1,5 @@
+package GUI;
+
 /**
  * Created by Jenny on 01.03.2016.
  */
