@@ -2,6 +2,7 @@ package code;
 
 import java.sql.Date;
 import java.sql.ResultSet;
+import java.sql.Time;
 
 public class GUIConnect {
     private DBConnect dbc;
@@ -10,6 +11,8 @@ public class GUIConnect {
     private Exercise exercise;
     private Goals goals;
     private Manage manage;
+    private Template template;
+    private Workout workout;
 
     /* Initialize class */
     public GUIConnect(){
@@ -19,6 +22,8 @@ public class GUIConnect {
         this.exercise = new Exercise(dbc);
         this.goals = new Goals(dbc);
         this.manage = new Manage(dbc);
+        this.template = new Template(dbc);
+        this.workout = new Workout(dbc);
     }
 
 /* CATEGORY */
@@ -115,14 +120,71 @@ public class GUIConnect {
 
 
 /* MANAGE */
-    /* Create a new user */
-    public boolean createUser(String name){
+    /* Create a new user and returns the id (=-1 if fails) */
+    public int createUser(String name){
     return manage.createUser(name);
 }
 
     /* Verify user */
     public boolean verifyUser(String name, int id){
         return manage.verifyUser(name, id);
+    }
+
+
+/* TEMPLATE */
+    /* Get a ResultSet-object with name and workout-id for every template */
+    public ResultSet getAllTemplates(int person_id){
+        return template.getAllTemplates(person_id);
+    }
+
+    /* Get a ResultSet-object with name, workout-id, exercise-id and -name for a given template */
+    public ResultSet getTemplate(int person_id, int workout_id){
+        return template.getTemplate(person_id, workout_id);
+    }
+
+    /* Load a new template to the database */
+    public boolean loadTemplateToDB(int person_id, int workout_id, String name){
+        return template.loadTemplateToDB(person_id, workout_id, name);
+    }
+
+/* WORKOUT */
+    /* Get a ResultSet-object with id, date and start time for every workout */
+    public ResultSet getAllWorkouts(int person_id){
+        return workout.getAllWorkouts(person_id);
+    }
+
+    /* Get a ResultSet-object with name and id of all exercises in a workout */
+    public ResultSet getExercisesForWorkout(int person_id, int workout_id){
+        return workout.getExercisesForWorkout(person_id, workout_id);
+    }
+
+    /* Get the id of a workout, returns -1 if fail or multiple with similarattributes. USE ONLY IF NO OTHER OPTION */
+    public int getWorkoutID(int person_id, Date date, Time start_time){
+        return workout.getID(person_id, date, start_time);
+    }
+
+    /* Get a ResultSet-object with all attributes for a given workout */
+    public ResultSet getWorkoutInfo(int person_id, int workout_id, boolean indoor){
+        return workout.getInfo(person_id, workout_id, indoor);
+    }
+
+    /* Get a ResultSet-object with the id, date and start time for every workout in a given periode */
+    public ResultSet getWorkoutsForPeriode(int person_id, Date start_date, Date end_date){
+        return workout.getWorkoutsForPeriode(person_id, start_date, end_date);
+    }
+
+    /* Load a new indoor-workout to the database */
+    public boolean loadIndoorWorkoutToDB(Date date, Time starttime, int duration, int shape, int performance,
+                                         String note, int person_id, String air, int spectators){
+        return workout.loadIndoorWorkoutToDB(date, starttime, duration,
+                shape, performance, note, person_id, air, spectators);
+    }
+
+    /* Load a new outdoor-workout to the database */
+    public boolean loadOutdoorWorkoutToDB(Date date, Time starttime, int duration, int shape, int performance,
+                                         String note, int person_id, String weather, int temperature){
+        return workout.loadOutdoorWorkoutToDB(date, starttime, duration,
+                shape, performance, note, person_id, weather, temperature);
     }
 
 }

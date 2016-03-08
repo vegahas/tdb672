@@ -25,7 +25,7 @@ public class Manage{
         return false;
     }
 
-    public boolean createUser(String name){
+    public int createUser(String name){
         String stmt = "SELECT MAX(personID) AS 'num' FROM person;";
         ResultSet res = dbc.getData(stmt);      //get current max id
         int id = -1;
@@ -41,9 +41,10 @@ public class Manage{
         if(id != -1) {
             id += 1;
             stmt = "INSERT INTO person (personID, navn) VALUES ('" + id + "', '" + name + "');";  //SQL
-            return dbc.setData(stmt);
+            dbc.setData(stmt);
+            return id;
         }else{
-            return  false;
+            return -1;
         }
     }
 
