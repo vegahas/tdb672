@@ -1,4 +1,5 @@
 package GUI;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -6,8 +7,9 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import java.io.IOException;
+
 /**
- * Created by Jenny on 01.03.2016.
+ * Created by odinblomhoffpedersen on 06.03.2016.
  */
 public class Main extends Application{
     private static Stage primaryStage;
@@ -33,7 +35,9 @@ public class Main extends Application{
         primaryStage.show();
         //mainLayout.setCenter(loader.load());
     }
+
     public static void main(String[] args) {
-        launch(args);
+        DBConnect connect = new DBConnect();
+        connect.getData();
     }
 }
