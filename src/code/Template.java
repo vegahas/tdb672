@@ -10,7 +10,7 @@ public class Template {
     }
 
     public ResultSet getTemplate(int person_id, int workout_id){
-        String stmt ="SELECT mal.navn, mal.treningsID, øvelse.id, øvelse.navn FROM mal " +
+        String stmt ="SELECT mal.navn, treningsID, øvelsesid, øvelse.navn FROM mal " +
                 "INNER JOIN treningsøvelse ON mal.personID = treningsøvelse.personID " +
                 "AND mal.treningsID = treningsØvelse.treningsID " +
                 "INNER JOIN øvelse ON øvelse.øvelsesID = treningsøvelse.øvelsesID " +

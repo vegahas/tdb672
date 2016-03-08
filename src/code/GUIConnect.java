@@ -11,6 +11,7 @@ public class GUIConnect {
     private Exercise exercise;
     private Goals goals;
     private Manage manage;
+    private Results results;
     private Template template;
     private Workout workout;
 
@@ -22,6 +23,7 @@ public class GUIConnect {
         this.exercise = new Exercise(dbc);
         this.goals = new Goals(dbc);
         this.manage = new Manage(dbc);
+        this.results = new Results(dbc);
         this.template = new Template(dbc);
         this.workout = new Workout(dbc);
     }
@@ -131,6 +133,28 @@ public class GUIConnect {
     }
 
 
+/* RESULTS */
+    /* Get a ResultSet-object with exercise-id, workout-id, result and date for every result */
+    public ResultSet getAllResults(int person_id){
+        return results.getAllResults(person_id);
+    }
+
+    /* Get a ResultSet-object with exercise-id, date and best result for every exercise in a periode */
+    public ResultSet getPeriodeBestResults(int person_id, Date start_date, Date end_date){
+        return results.getPeriodeBestResults(person_id, start_date, end_date);
+    }
+
+    /* Get a ResultSet-object with  all results, dates and goal-descriptions for an exercise in a periode */
+    public ResultSet getResultsGoals(int person_id, int exercise_id, Date start_date, Date end_date){
+        return results.getResultsGoals(person_id, exercise_id, start_date, end_date);
+    }
+
+    /* Get a ResultSet-object with shape, performance, date and all results for an exercise in a periode */
+    public ResultSet getResultsShapePerformance(int person_id, int exercise_id, Date start_date, Date end_date){
+        return results.getResultsShapePerformance(person_id, exercise_id, start_date, end_date);
+    }
+
+
 /* TEMPLATE */
     /* Get a ResultSet-object with name and workout-id for every template */
     public ResultSet getAllTemplates(int person_id){
@@ -148,6 +172,10 @@ public class GUIConnect {
     }
 
 /* WORKOUT */
+    /* Connect an exercise to a workout */
+    public boolean connectExerciseWorkout(int person_id, int workout_id, int exercise_id, int result){
+        return workout.connectExercise(person_id, workout_id, exercise_id, result);
+    }
     /* Get a ResultSet-object with id, date and start time for every workout */
     public ResultSet getAllWorkouts(int person_id){
         return workout.getAllWorkouts(person_id);

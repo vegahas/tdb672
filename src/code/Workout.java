@@ -107,4 +107,10 @@ public class Workout {
                 "WHERE personID = "+person_id+" AND treningsID = "+workout_id+";";
         return dbc.getData(stmt);
     }
+
+    public boolean connectExercise(int person_id, int workout_id, int exercise_id, int result){
+        String stmt = "INSERT INTO treningsøvelse (treningsID, øvelsesID, personID, resultat) VALUES " +
+                "("+workout_id+", "+exercise_id+", "+person_id+", '"+result+"');";
+        return dbc.setData(stmt);
+    }
 }
