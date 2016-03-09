@@ -12,7 +12,7 @@ import java.io.IOException;
  */
 public class createUserController {
 
-    private Main main = new Main();
+    private MainStart main = new MainStart();
     @FXML
     private Label userIDLabel;
     @FXML
