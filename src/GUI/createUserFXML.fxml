@@ -4,55 +4,57 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-<AnchorPane minHeight="700.0" minWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.createUserController">
+<AnchorPane minHeight="900.0" minWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.createUserController">
     <children>
-        <GridPane prefHeight="700.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <GridPane minHeight="0.0" prefHeight="700.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             </columnConstraints>
             <rowConstraints>
-                <RowConstraints maxHeight="589.0" minHeight="10.0" prefHeight="235.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="589.0" minHeight="10.0" prefHeight="173.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="276.0" minHeight="10.0" prefHeight="265.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="589.0" minHeight="10.0" prefHeight="70.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="589.0" minHeight="10.0" prefHeight="161.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="589.0" minHeight="10.0" prefHeight="134.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="438.0" minHeight="10.0" prefHeight="216.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="438.0" minHeight="10.0" prefHeight="331.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-                <Label text="Create new user">
+                <Label text="Create new user" GridPane.rowIndex="1">
                     <font>
                         <Font size="36.0" />
                     </font>
                     <GridPane.margin>
-                        <Insets left="171.0" />
+                        <Insets left="270.0" />
                     </GridPane.margin>
                 </Label>
-                <Button fx:id="confirmButton" mnemonicParsing="false" onAction="#createUser" prefHeight="55.0" prefWidth="98.0" text="Confirm" GridPane.rowIndex="2">
+                <Button fx:id="confirmButton" minHeight="55.0" minWidth="100.0" mnemonicParsing="false" onAction="#createUser" prefHeight="55.0" prefWidth="100.0" text="Confirm" GridPane.rowIndex="3">
                     <GridPane.margin>
-                        <Insets bottom="20.0" left="200.0" />
+                        <Insets bottom="20.0" left="270.0" />
                     </GridPane.margin>
                 </Button>
-                <Button mnemonicParsing="false" onAction="#back" prefHeight="56.0" prefWidth="95.0" text="  Back  " GridPane.rowIndex="2">
+                <Button minHeight="55.0" minWidth="100.0" mnemonicParsing="false" onAction="#back" prefHeight="56.0" prefWidth="95.0" text="  Back  " GridPane.rowIndex="3">
                     <GridPane.margin>
-                        <Insets bottom="20.0" left="320.0" />
+                        <Insets bottom="20.0" left="440.0" />
                     </GridPane.margin>
                 </Button>
-                <Label fx:id="userIDLabel" prefHeight="50.0" prefWidth="331.0" text="Your userID is" visible="false" GridPane.rowIndex="2">
+                <Label fx:id="userIDLabel" prefHeight="50.0" prefWidth="331.0" text="Your userID is" visible="false" GridPane.rowIndex="3">
                     <GridPane.margin>
-                        <Insets left="145.0" top="100.0" />
+                        <Insets left="235.0" top="100.0" />
                     </GridPane.margin>
                     <font>
                         <Font size="24.0" />
                     </font>
                 </Label>
-                <Label text="Username:" GridPane.rowIndex="1">
+                <Label text="Username:" GridPane.rowIndex="2">
                     <font>
                         <Font size="20.0" />
                     </font>
                     <GridPane.margin>
-                        <Insets left="120.0" />
+                        <Insets left="250.0" />
                     </GridPane.margin>
                 </Label>
-                <TextField fx:id="userName" maxWidth="200.0" GridPane.rowIndex="1">
+                <TextField fx:id="userName" maxWidth="200.0" GridPane.rowIndex="2">
                     <GridPane.margin>
-                        <Insets left="230.0" />
+                        <Insets left="370.0" />
                     </GridPane.margin>
                 </TextField>
             </children>

@@ -4,61 +4,74 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-<AnchorPane minHeight="700.0" minWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.loginController">
+<AnchorPane minHeight="900.0" minWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.loginController">
    <children>
       <GridPane prefHeight="700.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
-            <RowConstraints maxHeight="589.0" minHeight="10.0" prefHeight="189.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="589.0" minHeight="10.0" prefHeight="156.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="536.0" minHeight="10.0" prefHeight="156.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="276.0" minHeight="0.0" prefHeight="236.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="589.0" minHeight="10.0" prefHeight="87.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="589.0" minHeight="10.0" prefHeight="96.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="589.0" minHeight="10.0" prefHeight="132.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="536.0" minHeight="10.0" prefHeight="123.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="276.0" minHeight="0.0" prefHeight="199.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="288.0" minHeight="10.0" prefHeight="279.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#login" text="Login" GridPane.rowIndex="3">
+            <Button alignment="CENTER" contentDisplay="TOP" minHeight="55.0" minWidth="100.0" mnemonicParsing="false" onAction="#login" prefWidth="0.0" text="  Login  " GridPane.rowIndex="4">
                <GridPane.margin>
-                  <Insets left="275.0" />
+                  <Insets left="270.0" />
                </GridPane.margin>
             </Button>
-            <Label text="Username:" GridPane.rowIndex="1">
-               <padding>
-                  <Insets left="140.0" />
-               </padding>
+            <Label text="Username:" GridPane.rowIndex="2">
                <font>
                   <Font size="18.0" />
                </font>
-            </Label>
-            <TextField fx:id="userName" maxWidth="200.0" GridPane.rowIndex="1">
                <GridPane.margin>
-                  <Insets left="240.0" />
+                  <Insets left="250.0" />
+               </GridPane.margin>
+            </Label>
+            <TextField fx:id="userName" maxWidth="200.0" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets left="370.0" />
                </GridPane.margin>
             </TextField>
-            <Label text="UserID:" GridPane.rowIndex="2">
+            <Label text="UserID:" GridPane.rowIndex="3">
                <font>
                   <Font size="18.0" />
                </font>
-               <padding>
-                  <Insets left="140.0" />
-               </padding>
-            </Label>
-            <TextField fx:id="userID" maxWidth="200.0" GridPane.rowIndex="2">
                <GridPane.margin>
-                  <Insets left="240.0" />
+                  <Insets left="250.0" />
+               </GridPane.margin>
+            </Label>
+            <TextField fx:id="userID" maxWidth="200.0" GridPane.rowIndex="3">
+               <GridPane.margin>
+                  <Insets left="370.0" />
                </GridPane.margin>
             </TextField>
-            <Label fx:id="infoText" text="Wrong username and/or userID" visible="false" GridPane.rowIndex="3">
+            <Label fx:id="infoText" text="Wrong username and/or userID" visible="false" GridPane.rowIndex="4">
                <GridPane.margin>
                   <Insets left="200.0" top="80.0" />
                </GridPane.margin>
             </Label>
-             <Button alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#newUser" text="New user" GridPane.rowIndex="3">
+             <Button alignment="CENTER" contentDisplay="TOP" minHeight="55.0" minWidth="100.0" mnemonicParsing="false" onAction="#newUser" text="New user" GridPane.rowIndex="4">
                  <GridPane.margin>
-                     <Insets left="325.0" />
+                     <Insets left="440.0" />
                  </GridPane.margin>
              </Button>
+            <Label contentDisplay="CENTER" text="Login" GridPane.rowIndex="1">
+               <font>
+                  <Font size="36.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="355.0" />
+               </GridPane.margin>
+            </Label>
          </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
       </GridPane>
    </children>
 </AnchorPane>
