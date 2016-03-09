@@ -18,7 +18,7 @@ public class loginController {
     @FXML
     private Label infoText;
 
-    private Main main = new Main();
+    private MainStart main = new MainStart();
 
     @FXML
     private void login() throws IOException {
