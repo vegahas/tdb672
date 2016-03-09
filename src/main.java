@@ -32,7 +32,7 @@ public class Main extends Application{
 
     public static void showOptionsScene() throws IOException{
         FXMLLoader loader = new FXMLLoader();
-        //loader.setLocation(Main.class.getResource("optionsFXML.fxml"));
+        //loader.setLocation(MainStart.class.getResource("optionsFXML.fxml"));
         Parent root = loader.load(Main.class.getResource("optionsFXML.fxml"));
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
