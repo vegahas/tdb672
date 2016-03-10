@@ -9,7 +9,7 @@ import java.io.IOException;
 /**
  * Created by Jenny on 01.03.2016.
  */
-public class loginController {
+public class loginController extends Controller{
 
     @FXML
     private TextField userName;
@@ -22,16 +22,14 @@ public class loginController {
 
     @FXML
     private void login() throws IOException {
-        /*
-        logikk som sjekker om brukeren godkjennes
-         */
-        /*if (checkUser(userName.getText(), userID.getText())) {
+        int id = Integer.valueOf(userID.getText());
+        if (guiConnect.verifyUser(userName.getText(), id)) {
+            finalUserID = id;
             main.showOptionsScene();
-        }
-        else{
+        } else {
             infoText.setVisible(true);
-        //}*/
-        main.showOptionsScene();
+            infoText.setText("Username and/or userID is wrong. Username is casesensitive");
+        }
     }
     @FXML
     private void newUser() throws IOException {

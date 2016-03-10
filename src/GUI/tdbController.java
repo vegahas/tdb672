@@ -6,7 +6,7 @@ import javafx.scene.control.*;
 /**
  * Created by Jenny on 01.03.2016.
  */
-public class tdbController {
+public class tdbController extends Controller{
 
     //Create work-out
     @FXML
