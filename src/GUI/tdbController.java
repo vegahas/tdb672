@@ -112,24 +112,15 @@ public class tdbController extends Controller{
             workoutPerformance.setItems(onetoten);
             workoutShape.setItems(onetoten);
             ObservableList<Mal> mal = FXCollections.observableArrayList();
-            ObservableList<Integer> id = FXCollections.observableArrayList();
-            //Collection<String> malID = new ArrayList<>();
-            //Collection<String> malName = new ArrayList<>();
             ResultSet rs = guiConnect.getAllTemplates(finalUserID);
             workoutTemplatesID.setCellValueFactory(new PropertyValueFactory<Mal,Integer>("malName"));
             workoutTemplatesName.setCellValueFactory(new PropertyValueFactory<Mal,String>("malID"));
             try {
                 while (rs.next()) {
                     mal.add(new Mal(rs.getString("navn"),rs.getInt("treningsID")));
-                    //id.add(rs.getInt("treningsID"));
                 }
-                //workoutTemplates.setEditable(true);
-                System.out.println(mal);
-                //workoutTemplates.getColumns().setAll(workoutTemplatesID, workoutTemplatesName);
                 workoutTemplates.setItems(mal);
-                workoutExercises.setItems(id);
                 System.out.println("success");
-                //workoutExercises.setItems();
             } catch (Exception e) {
 
             }
@@ -151,22 +142,35 @@ public class tdbController extends Controller{
             exerciseTempPane.setMinSize(0,700);
         }
     }
+
+    @FXML
+    private void selectTemplate(){
+        try{
+        Mal selectedMal = workoutTemplates.getSelectionModel().getSelectedItem();
+        ResultSet rs = guiConnect.getTemplate(finalUserID, selectedMal.getMalID());
+        while (rs.next()) {
+            //something that adds exercises for each iteration
+            }
+        }
+        catch (Exception e){
+            System.out.println("Fail :(");
+        }
+    }
     @FXML
     private void createWorkout(){ //called when button is pressed
         workoutInfo.setVisible(true);
-        System.out.println(workoutExercises.getSelectionModel().getSelectedItems());
-        System.out.println(workoutTemplates.getSelectionModel().getSelectedItems());
         if (toggleGroup2.getSelectedToggle().equals(workoutIn)) {
             try {
                 java.util.Date date = Date.valueOf(workoutDate.getValue());
                 java.sql.Date sqlDate = new java.sql.Date(date.getTime());
-                int workoutID = guiConnect.loadIndoorWorkoutToDB(sqlDate,workoutStart.getText(), Integer.valueOf(workoutDuration.getText()),
+                int workoutID = guiConnect.loadIndoorWorkoutToDB(sqlDate,workoutStart.getText()+":00", Integer.valueOf(workoutDuration.getText()),
                         workoutShape.getValue(), workoutPerformance.getValue(), workoutNotes.getText(), finalUserID,
                         workoutAirWeather.getText(), workoutSpecTemp.getValue());
                 if (workoutAsTemplate.isSelected()){
                     guiConnect.loadTemplateToDB(finalUserID, workoutID, workoutTempName.getText());
                 }
                 workoutInfo.setText("Success");
+                initialize = true;
             }
             catch (Exception e){
                 System.out.println(e);
