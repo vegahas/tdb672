@@ -51,7 +51,6 @@ public class Workout {
             stmt = "INSERT INTO treningsøkt (treningsID, dato, starttidspunkt, varighet, personligForm, prestasjon, "+
                     "notat, personID) VALUES ("+id+", '"+date+"', '"+starttime+"', "+duration+", "+shape+", "+
                     performance+", '"+ note+"', "+person_id+");";
-            System.out.println(stmt);
             dbc.setData(stmt);
             return id;
         }else{
