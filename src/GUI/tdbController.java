@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 
 import java.sql.Date;
 import java.sql.ResultSet;
@@ -59,6 +60,8 @@ public class tdbController extends Controller{
     private CheckBox workoutAsTemplate;
     @FXML
     private ListView workoutExercises;
+    @FXML
+    private AnchorPane exerciseTempPane;
 
     //EXERCISE
     @FXML
@@ -138,14 +141,14 @@ public class tdbController extends Controller{
 
     @FXML
     private void handleTemplate(){ //working
-        System.out.println(toggleGroup.getSelectedToggle());
         if (toggleGroup.getSelectedToggle().equals(templateRadio)){
-            workoutTemplates.setMaxSize(300,700);
-            System.out.println("hei");
+            exerciseTempPane.setMaxSize(300,700);
+            exerciseTempPane.setMinSize(300,700);
             //enable list of templates
         }
         else {
-            workoutTemplates.setMaxSize(0,700);
+            exerciseTempPane.setMaxSize(0,700);
+            exerciseTempPane.setMinSize(0,700);
         }
     }
     @FXML
