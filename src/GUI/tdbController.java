@@ -179,8 +179,8 @@ public class tdbController extends Controller{
     private void selectTemplate(){
         try{
         Mal selectedMal = workoutTemplates.getSelectionModel().getSelectedItem();
-        ResultSet rs = guiConnect.getTemplate(finalUserID, selectedMal.getMalID());
-        while (rs.next()) {
+        ResultSet rest = guiConnect.getTemplate(finalUserID, selectedMal.getMalID());
+        while (rest.next()) {
             //something that adds exercises for each iteration
             }
         }
@@ -301,14 +301,24 @@ public class tdbController extends Controller{
             guiConnect.createSub(name, ID);
         } catch (Exception e) {
             System.out.println(e);
-        }
+            }
         initialize = true;
     }
 
     @FXML
     private void deleteSubcat() {
+        try{
+            ResultSet rs = guiConnect.getEmptySubCat();
+            while (rs.next()) {
+                if ( rs.getString("navn").equals(deleteSubcatName.getText())) {
+                    guiConnect.deleteSub(rs.getInt("ukatID"));
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+            }
 
-        }
+    }
 
     @FXML
     private void refreshDiary(){
