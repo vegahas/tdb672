@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
+
 <AnchorPane minHeight="900.0" minWidth="800.0" prefHeight="500.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.tdbController">
    <children>
       <TabPane maxHeight="500.0" maxWidth="500.0" minHeight="900.0" minWidth="800.0" prefHeight="643.0" prefWidth="646.0" tabClosingPolicy="UNAVAILABLE">
@@ -18,7 +20,7 @@
                                 <items>
                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                                        <children>
-                                          <SplitPane dividerPositions="0.7731707317073171" layoutX="114.0" layoutY="211.0" orientation="VERTICAL" prefHeight="622.0" prefWidth="388.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                          <SplitPane dividerPositions="0.8475609756097561" layoutX="114.0" layoutY="211.0" orientation="VERTICAL" prefHeight="622.0" prefWidth="388.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                             <items>
                                               <AnchorPane minHeight="200.0" minWidth="300.0" prefHeight="301.0" prefWidth="390.0">
                                                    <children>
@@ -29,20 +31,30 @@
                                                       <RadioButton fx:id="noTemplateRadio" layoutX="19.0" layoutY="50.0" mnemonicParsing="false" onAction="#handleTemplate" text="Not from template" toggleGroup="$toggleGroup" />
                                                       <TextField fx:id="workoutStart" layoutX="190.0" layoutY="194.0" promptText="tt:mm" />
                                                       <TextField fx:id="workoutDuration" layoutX="189.0" layoutY="248.0" promptText="minutter" />
-                                                      <TextField fx:id="workoutShape" layoutX="189.0" layoutY="302.0" promptText="[1-10]" />
-                                                      <TextField fx:id="workoutPerformance" layoutX="189.0" layoutY="359.0" promptText="[1-10]" />
-                                                      <TextArea fx:id="workoutNotes" layoutX="183.0" layoutY="408.0" prefHeight="128.0" prefWidth="200.0" />
+                                                      <TextArea fx:id="workoutNotes" layoutX="182.0" layoutY="516.0" prefHeight="128.0" prefWidth="200.0" />
                                                       <Label layoutX="65.0" layoutY="143.0" text="Date:" />
                                                       <Label layoutX="62.0" layoutY="199.0" text="Start time:" />
                                                       <Label layoutX="65.0" layoutY="253.0" text="Duration:" />
                                                       <Label layoutX="64.0" layoutY="307.0" text="Personal shape:" />
                                                       <Label layoutX="65.0" layoutY="364.0" text="Performance:" />
-                                                      <Label layoutX="66.0" layoutY="417.0" text="Notes:" />
+                                                      <Label layoutX="66.0" layoutY="523.0" text="Notes:" />
                                                       <DatePicker fx:id="workoutDate" layoutX="189.0" layoutY="138.0" prefHeight="31.0" prefWidth="187.0" />
                                                       <Label layoutX="66.0" layoutY="89.0" text="Name:" />
                                                       <TextField fx:id="workoutName" layoutX="189.0" layoutY="84.0" />
-                                                      <Button layoutX="69.0" layoutY="537.0" minHeight="55.0" minWidth="100.0" mnemonicParsing="false" onAction="#createWorkout" text="Create" />
-                                                      <TextArea fx:id="workoutInfo" layoutX="183.0" layoutY="537.0" prefHeight="52.0" prefWidth="198.0" visible="false" />
+                                                      <Button layoutX="66.0" layoutY="622.0" minHeight="55.0" minWidth="100.0" mnemonicParsing="false" onAction="#createWorkout" text="Create" />
+                                                      <TextArea fx:id="workoutInfo" layoutX="183.0" layoutY="646.0" prefHeight="39.0" prefWidth="242.0" visible="false" />
+                                                      <RadioButton fx:id="workoutIn" layoutX="229.0" layoutY="14.0" mnemonicParsing="false" selected="true" text="Indoor">
+                                                         <toggleGroup>
+                                                            <ToggleGroup fx:id="toggleGroup2" />
+                                                         </toggleGroup>
+                                                      </RadioButton>
+                                                      <RadioButton fx:id="workoutOut" layoutX="229.0" layoutY="50.0" mnemonicParsing="false" text="Outdoor" toggleGroup="$toggleGroup2" />
+                                                      <Label layoutX="67.0" layoutY="418.0" text="Air/Weather:" />
+                                                      <TextField fx:id="workoutAirWeather" layoutX="190.0" layoutY="413.0" />
+                                                      <Label layoutX="66.0" layoutY="470.0" text="Spectators/Temp.:" />
+                                                      <ChoiceBox fx:id="workoutSpecTemp" layoutX="293.0" layoutY="465.0" onMouseClicked="#initialize" prefHeight="31.0" prefWidth="83.0" />
+                                                      <ChoiceBox fx:id="workoutShape" layoutX="293.0" layoutY="302.0" onMouseClicked="#initialize" prefHeight="31.0" prefWidth="83.0" />
+                                                      <ChoiceBox fx:id="workoutPerformance" layoutX="295.0" layoutY="363.0" onMouseClicked="#initialize" prefHeight="31.0" prefWidth="83.0" />
                                                    </children>
                                                 </AnchorPane>
                                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" />

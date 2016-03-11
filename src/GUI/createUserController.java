@@ -7,7 +7,7 @@ import javafx.scene.control.TextField;
 
 import java.io.IOException;
 
-    /**
+/**
      * Created by Jenny on 07.03.2016.
      */
 public class createUserController extends Controller{
@@ -40,13 +40,9 @@ public class createUserController extends Controller{
         }
     }
 
-    public static void main(String[] args) {
-        createUserController cu = new createUserController();
-        cu.initialize();
-    }
 
-    private void initialize(){
+    @FXML
+    public void initialize() {
         userIDLabel.setVisible(false);
-        System.out.println("hei");
     }
 }

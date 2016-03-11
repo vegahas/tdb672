@@ -28,12 +28,13 @@ public class MainStart extends Application{
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
     }
-    public static void showOptionsScene() throws IOException{
+    public static void showOptionsScene() throws Exception {
         FXMLLoader loader = new FXMLLoader();
         //loader.setLocation(GUI.MainStart.class.getResource("optionsFXML.fxml"));
         Parent root = loader.load(MainStart.class.getResource("optionsFXML.fxml"));
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
+        tdbController tc = new tdbController();
         //mainLayout.setCenter(loader.load());
     }
     public void showNewUserScene() throws IOException{

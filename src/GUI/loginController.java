@@ -5,6 +5,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 /**
  * Created by Jenny on 01.03.2016.
@@ -21,7 +23,7 @@ public class loginController extends Controller{
     private MainStart main = new MainStart();
 
     @FXML
-    private void login() throws IOException {
+    private void login() throws Exception {
         int id = Integer.valueOf(userID.getText());
         if (guiConnect.verifyUser(userName.getText(), id)) {
             finalUserID = id;
@@ -36,4 +38,8 @@ public class loginController extends Controller{
         main.showNewUserScene();
     }
 
+    @FXML
+    public void initialize(URL location, ResourceBundle resources) {
+
+    }
 }
