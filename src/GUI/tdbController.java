@@ -138,7 +138,6 @@ public class tdbController extends Controller{
                 //workoutTemplates.setEditable(true);
                 System.out.println(mal);
                 //workoutTemplates.getColumns().setAll(workoutTemplatesID, workoutTemplatesName);
-                System.out.println(workoutTemplates);
                 workoutTemplates.setItems(mal);
                 System.out.println("success");
                 //workoutExercises.setItems();
