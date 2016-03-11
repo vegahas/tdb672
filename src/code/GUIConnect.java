@@ -201,15 +201,15 @@ public class GUIConnect {
         return workout.getWorkoutsForPeriode(person_id, start_date, end_date);
     }
 
-    /* Load a new indoor-workout to the database */
-    public boolean loadIndoorWorkoutToDB(Date date, String starttime, int duration, int shape, int performance,
+    /* Load a new indoor-workout to the database, returns the ID (-1 = fail) */
+    public int loadIndoorWorkoutToDB(Date date, String starttime, int duration, int shape, int performance,
                                          String note, int person_id, String air, int spectators){
         return workout.loadIndoorWorkoutToDB(date, java.sql.Time.valueOf(starttime), duration,
                 shape, performance, note, person_id, air, spectators);
     }
 
-    /* Load a new outdoor-workout to the database */
-    public boolean loadOutdoorWorkoutToDB(Date date, String starttime, int duration, int shape, int performance,
+    /* Load a new outdoor-workout to the database, returns the ID (-1 = fail) */
+    public int loadOutdoorWorkoutToDB(Date date, String starttime, int duration, int shape, int performance,
                                          String note, int person_id, String weather, int temperature){
         return workout.loadOutdoorWorkoutToDB(date, java.sql.Time.valueOf(starttime), duration,
                 shape, performance, note, person_id, weather, temperature);

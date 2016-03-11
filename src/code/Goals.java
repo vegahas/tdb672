@@ -27,7 +27,7 @@ public class Goals {
         if(id != -1) {
             id += 1;
             stmt = "INSERT INTO mål (målID, startdato, oppnådd, sluttdato, beskrivelse, personID, øvelsesID) " +
-                    "VALUES (" + id + ", " + start + ", " + done + ", " + finish + ", '" + description + "', " +
+                    "VALUES (" + id + ", '" + start + "', " + done + ", '" + finish + "', '" + description + "', " +
                     person_id + ", " + exercise_id + ");";
             return dbc.setData(stmt);
         }else{

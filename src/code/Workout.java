@@ -9,21 +9,26 @@ public class Workout {
         this.dbc = dbc;
     }
 
-    public boolean loadIndoorWorkoutToDB(Date date, Time starttime, int duration, int shape, int performance,
+    public int loadIndoorWorkoutToDB(Date date, Time starttime, int duration, int shape, int performance,
                                          String note, int person_id, String air, int spectators){
         int id = loadWorkoutToDB(date, starttime, duration, shape, performance, note, person_id);
-        String stmt ="INSERT INTO innetrening (personID, treningsID, luft, tilskuerer) VALUES ("+
-                person_id+", "+id+", '"+air+"', "+spectators+");";
-        System.out.println(stmt);
-        return dbc.setData(stmt);
+        if (id != -1) {
+            String stmt = "INSERT INTO innetrening (personID, treningsID, luft, tilskuere) VALUES (" +
+                    person_id + ", " + id + ", '" + air + "', " + spectators + ");";
+            dbc.setData(stmt);
+        }
+        return id;
     }
 
-    public boolean loadOutdoorWorkoutToDB(Date date, Time starttime, int duration, int shape, int performance,
+    public int loadOutdoorWorkoutToDB(Date date, Time starttime, int duration, int shape, int performance,
                                           String note, int person_id, String weather, int temperature){
         int id = loadWorkoutToDB(date, starttime, duration, shape, performance, note, person_id);
-        String stmt = "INSERT INTO utetrening (personID, treningsID, værtype, temperatur) VALUES (" +
-                person_id +", "+id+", '"+weather+"', "+temperature+");";
-        return dbc.setData(stmt);
+        if (id != -1) {
+            String stmt = "INSERT INTO utetrening (personID, treningsID, værtype, temperatur) VALUES (" +
+                    person_id + ", " + id + ", '" + weather + "', " + temperature + ");";
+            dbc.setData(stmt);
+        }
+        return id;
     }
 
     private int loadWorkoutToDB(Date date, Time starttime, int duration,
@@ -43,9 +48,9 @@ public class Workout {
         }
         if(id != -1) {
             id += 1;
-            stmt = "INSERT INTO treningsøkt (treningsID, dato, starttidspunkt, varighet, personlingForm, prestasjon, "+
-                    "notat, personID) VALUES ("+id+", '"+date+"', '"+starttime+"', "+duration+", "+shape+", "+performance+", '"+
-                    note+"', "+person_id+");";
+            stmt = "INSERT INTO treningsøkt (treningsID, dato, starttidspunkt, varighet, personligForm, prestasjon, "+
+                    "notat, personID) VALUES ("+id+", '"+date+"', '"+starttime+"', "+duration+", "+shape+", "+
+                    performance+", '"+ note+"', "+person_id+");";
             System.out.println(stmt);
             dbc.setData(stmt);
             return id;
