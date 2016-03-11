@@ -20,7 +20,7 @@
                                 <items>
                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                                        <children>
-                                          <SplitPane dividerPositions="0.8475609756097561" layoutX="114.0" layoutY="211.0" orientation="VERTICAL" prefHeight="622.0" prefWidth="388.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                          <SplitPane dividerPositions="0.8085365853658537" layoutX="114.0" layoutY="211.0" orientation="VERTICAL" prefHeight="622.0" prefWidth="388.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                             <items>
                                               <AnchorPane minHeight="200.0" minWidth="300.0" prefHeight="301.0" prefWidth="390.0">
                                                    <children>
@@ -29,40 +29,55 @@
                                                             <ToggleGroup fx:id="toggleGroup" />
                                                          </toggleGroup></RadioButton>
                                                       <RadioButton fx:id="noTemplateRadio" layoutX="19.0" layoutY="50.0" mnemonicParsing="false" onAction="#handleTemplate" text="Not from template" toggleGroup="$toggleGroup" />
-                                                      <TextField fx:id="workoutStart" layoutX="190.0" layoutY="194.0" promptText="tt:mm" />
-                                                      <TextField fx:id="workoutDuration" layoutX="189.0" layoutY="248.0" promptText="minutter" />
-                                                      <TextArea fx:id="workoutNotes" layoutX="182.0" layoutY="516.0" prefHeight="128.0" prefWidth="200.0" />
-                                                      <Label layoutX="65.0" layoutY="143.0" text="Date:" />
-                                                      <Label layoutX="62.0" layoutY="199.0" text="Start time:" />
-                                                      <Label layoutX="65.0" layoutY="253.0" text="Duration:" />
-                                                      <Label layoutX="64.0" layoutY="307.0" text="Personal shape:" />
-                                                      <Label layoutX="65.0" layoutY="364.0" text="Performance:" />
-                                                      <Label layoutX="66.0" layoutY="523.0" text="Notes:" />
-                                                      <DatePicker fx:id="workoutDate" layoutX="189.0" layoutY="138.0" prefHeight="31.0" prefWidth="187.0" />
-                                                      <Label layoutX="66.0" layoutY="89.0" text="Name:" />
-                                                      <TextField fx:id="workoutName" layoutX="189.0" layoutY="84.0" />
-                                                      <Button layoutX="66.0" layoutY="622.0" minHeight="55.0" minWidth="100.0" mnemonicParsing="false" onAction="#createWorkout" text="Create" />
-                                                      <TextArea fx:id="workoutInfo" layoutX="183.0" layoutY="646.0" prefHeight="39.0" prefWidth="242.0" visible="false" />
-                                                      <RadioButton fx:id="workoutIn" layoutX="229.0" layoutY="14.0" mnemonicParsing="false" selected="true" text="Indoor">
+                                                      <TextField fx:id="workoutStart" layoutX="184.0" layoutY="149.0" promptText="tt:mm" />
+                                                      <TextField fx:id="workoutDuration" layoutX="183.0" layoutY="203.0" promptText="minutter" />
+                                                      <TextArea fx:id="workoutNotes" layoutX="176.0" layoutY="471.0" prefHeight="128.0" prefWidth="200.0" />
+                                                      <Label layoutX="59.0" layoutY="98.0" text="Date:" />
+                                                      <Label layoutX="56.0" layoutY="154.0" text="Start time:" />
+                                                      <Label layoutX="59.0" layoutY="208.0" text="Duration:" />
+                                                      <Label layoutX="58.0" layoutY="262.0" text="Personal shape:" />
+                                                      <Label layoutX="59.0" layoutY="319.0" text="Performance:" />
+                                                      <Label layoutX="60.0" layoutY="478.0" text="Notes:" />
+                                                      <DatePicker fx:id="workoutDate" layoutX="183.0" layoutY="93.0" prefHeight="31.0" prefWidth="187.0" />
+                                                      <Label fx:id="workoutTempNameLabel" layoutX="200.0" layoutY="50.0" text="Name:" visible="false" />
+                                                      <TextField fx:id="workoutTempName" layoutX="254.0" layoutY="45.0" prefHeight="31.0" prefWidth="160.0" visible="false" />
+                                                      <Button layoutX="60.0" layoutY="599.0" minHeight="55.0" minWidth="100.0" mnemonicParsing="false" onAction="#createWorkout" text="Create" />
+                                                      <TextArea fx:id="workoutInfo" layoutX="183.0" layoutY="610.0" prefHeight="47.0" prefWidth="242.0" visible="false" />
+                                                      <RadioButton fx:id="workoutIn" layoutX="304.0" layoutY="262.0" mnemonicParsing="false" selected="true" text="Indoor">
                                                          <toggleGroup>
                                                             <ToggleGroup fx:id="toggleGroup2" />
                                                          </toggleGroup>
                                                       </RadioButton>
-                                                      <RadioButton fx:id="workoutOut" layoutX="229.0" layoutY="50.0" mnemonicParsing="false" text="Outdoor" toggleGroup="$toggleGroup2" />
-                                                      <Label layoutX="67.0" layoutY="418.0" text="Air/Weather:" />
-                                                      <TextField fx:id="workoutAirWeather" layoutX="190.0" layoutY="413.0" />
-                                                      <Label layoutX="66.0" layoutY="470.0" text="Spectators/Temp.:" />
-                                                      <ChoiceBox fx:id="workoutSpecTemp" layoutX="293.0" layoutY="465.0" onMouseClicked="#initialize" prefHeight="31.0" prefWidth="83.0" />
-                                                      <ChoiceBox fx:id="workoutShape" layoutX="293.0" layoutY="302.0" onMouseClicked="#initialize" prefHeight="31.0" prefWidth="83.0" />
-                                                      <ChoiceBox fx:id="workoutPerformance" layoutX="295.0" layoutY="363.0" onMouseClicked="#initialize" prefHeight="31.0" prefWidth="83.0" />
+                                                      <RadioButton fx:id="workoutOut" layoutX="304.0" layoutY="319.0" mnemonicParsing="false" text="Outdoor" toggleGroup="$toggleGroup2" />
+                                                      <Label layoutX="61.0" layoutY="373.0" text="Air/Weather:" />
+                                                      <TextField fx:id="workoutAirWeather" layoutX="184.0" layoutY="368.0" />
+                                                      <Label layoutX="60.0" layoutY="425.0" text="Spectators/Temp.:" />
+                                                      <ChoiceBox fx:id="workoutSpecTemp" layoutX="287.0" layoutY="420.0" onMouseClicked="#initialize" prefHeight="31.0" prefWidth="83.0" />
+                                                      <ChoiceBox fx:id="workoutShape" layoutX="188.0" layoutY="257.0" onMouseClicked="#initialize" prefHeight="31.0" prefWidth="83.0" />
+                                                      <ChoiceBox fx:id="workoutPerformance" layoutX="188.0" layoutY="314.0" onMouseClicked="#initialize" prefHeight="31.0" prefWidth="83.0" />
+                                                      <CheckBox fx:id="workoutAsTemplate" layoutX="200.0" layoutY="14.0" mnemonicParsing="false" onAction="#saveAsTemplate" text="Save as template" />
                                                    </children>
                                                 </AnchorPane>
-                                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" />
+                                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                                                   <children>
+                                                      <ListView layoutX="106.0" layoutY="-62.0" prefHeight="121.0" prefWidth="428.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                   </children></AnchorPane>
                                             </items>
                                           </SplitPane>
                                        </children>
                                     </AnchorPane>
-                                  <AnchorPane maxWidth="400.0" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" />
+                                  <AnchorPane maxWidth="400.0" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                       <children>
+                                          <TableView fx:id="workoutTemplates" layoutX="99.0" layoutY="60.0" prefHeight="822.0" prefWidth="362.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                            <columns>
+                                              <TableColumn id="workoutTemplatesID" fx:id="workoutTemplatesID" prefWidth="75.0" text="C1" />
+                                              <TableColumn id="workoutTemplatesName" fx:id="workoutTemplatesName" prefWidth="75.0" text="C2" />
+                                            </columns>
+                                             <columnResizePolicy>
+                                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                             </columnResizePolicy>
+                                          </TableView>
+                                       </children></AnchorPane>
                                 </items>
                               </SplitPane>
                            </content>
