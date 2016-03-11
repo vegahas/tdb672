@@ -12,8 +12,9 @@ public class Workout {
     public boolean loadIndoorWorkoutToDB(Date date, Time starttime, int duration, int shape, int performance,
                                          String note, int person_id, String air, int spectators){
         int id = loadWorkoutToDB(date, starttime, duration, shape, performance, note, person_id);
-        String stmt ="INSERT INTO innetrening (personID, treningsID, luft, tilskuere) VALUES ("+
+        String stmt ="INSERT INTO innetrening (personID, treningsID, luft, tilskuerer) VALUES ("+
                 person_id+", "+id+", '"+air+"', "+spectators+");";
+        System.out.println(stmt);
         return dbc.setData(stmt);
     }
 
@@ -27,7 +28,7 @@ public class Workout {
 
     private int loadWorkoutToDB(Date date, Time starttime, int duration,
                                     int shape, int performance, String note, int person_id){
-        String stmt ="SELECT MAX(treningsID) as 'num' FROM trening " +
+        String stmt ="SELECT MAX(treningsID) as 'num' FROM treningsøkt " +
                     "WHERE personID = " +person_id+";";
         ResultSet res = dbc.getData(stmt);
         int id = -1;
@@ -42,9 +43,10 @@ public class Workout {
         }
         if(id != -1) {
             id += 1;
-            stmt = "INSERT INTO treningsøkt (treningsID, dato, starttidspunkt, varighet, personligForm, prestasjon, "+
-                    "personID) VALUES ("+id+", "+date+", "+starttime+", "+duration+", "+shape+", "+performance+", '"+
+            stmt = "INSERT INTO treningsøkt (treningsID, dato, starttidspunkt, varighet, personlingForm, prestasjon, "+
+                    "notat, personID) VALUES ("+id+", '"+date+"', '"+starttime+"', "+duration+", "+shape+", "+performance+", '"+
                     note+"', "+person_id+");";
+            System.out.println(stmt);
             dbc.setData(stmt);
             return id;
         }else{

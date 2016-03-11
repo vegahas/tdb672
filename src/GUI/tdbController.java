@@ -1,7 +1,11 @@
 package GUI;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+
+import java.sql.Date;
 
 /**
  * Created by Jenny on 01.03.2016.
@@ -22,23 +26,28 @@ public class tdbController extends Controller{
     @FXML
     private TextField workoutDuration;
     @FXML
-    private TextField workoutShape;
+    private ChoiceBox<Integer> workoutShape;
     @FXML
-    private TextField workoutPerformance;
+    private ChoiceBox<Integer> workoutPerformance;
     @FXML
     private TextArea workoutNotes;
     @FXML
     private TextArea workoutInfo;
     @FXML
     private ToggleGroup toggleGroup;
+    @FXML
+    private ToggleGroup toggleGroup2;
+    @FXML
+    private RadioButton workoutIn = new RadioButton("workoutIn");
+    @FXML
+    private RadioButton workoutOut = new RadioButton("workoutOut");
+    @FXML
+    private TextField workoutAirWeather;
+    @FXML
+    private ChoiceBox<Integer> workoutSpecTemp;
+    private ObservableList<Integer> onetoten = FXCollections.observableArrayList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+    private ObservableList<Integer> temp = FXCollections.observableArrayList(0, 5, 10, 15, 20, 25, 30);
 
-    public static void main(String[] args) {
-        tdbController tdb = new tdbController();
-        tdb.setUp();
-    }
-
-    private void setUp(){
-    }
 
     @FXML
     private void handleTemplate(){ //working
@@ -54,11 +63,43 @@ public class tdbController extends Controller{
     @FXML
     private void createWorkout(){ //called when button is pressed
         workoutInfo.setVisible(true);
-        if (true) {
-            workoutInfo.setText("Success");
+        if (toggleGroup2.getSelectedToggle().equals(workoutIn)) {
+            try {
+                java.util.Date date = Date.valueOf(workoutDate.getValue());
+                java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+                guiConnect.loadIndoorWorkoutToDB(sqlDate,workoutStart.getText(), Integer.valueOf(workoutDuration.getText()),
+                        workoutShape.getValue(), workoutPerformance.getValue(), workoutNotes.getText(), finalUserID,
+                        workoutAirWeather.getText(), workoutSpecTemp.getValue());
+                workoutInfo.setText("Success");
+            }
+            catch (Exception e){
+                System.out.println(e);
+                workoutInfo.setText("Something is wrong");
+            }
+        }
+        else if (toggleGroup2.getSelectedToggle().equals(workoutOut)){
+            try {
+                java.util.Date date = Date.valueOf(workoutDate.getValue());
+                java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+                guiConnect.loadOutdoorWorkoutToDB(sqlDate, workoutStart.getText(), Integer.valueOf(workoutDuration.getText()),
+                        workoutShape.getValue(), workoutPerformance.getValue(), workoutNotes.getText(), finalUserID,
+                        workoutAirWeather.getText(), workoutSpecTemp.getValue());
+                workoutInfo.setText("Success");
+            }
+            catch (Exception e){
+                System.out.println(e);
+                workoutInfo.setText("Something is wrong");
+            }
         }
         else {
             workoutInfo.setText("Something is wrong");
         }
+    }
+
+    @FXML
+    public void initialize() {
+        workoutSpecTemp.setItems(temp);
+        workoutPerformance.setItems(onetoten);
+        workoutShape.setItems(onetoten);
     }
 }
