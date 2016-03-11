@@ -95,12 +95,25 @@ public class tdbController extends Controller{
     @FXML
     private TextArea deleteInfo;
 
+    //Subcategory
+    @FXML
+    private TextField subcatName;
+    @FXML
+    private Button subcatCreate;
+    @FXML
+    private TextField deleteSubcatName;
+    @FXML
+    private Button subcatDelete;
+    @FXML
+    private ListView categoryList;
+
 
     //Other
     private boolean initialize = true;
 
     private ObservableList<Integer> onetoten = FXCollections.observableArrayList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
     private ObservableList<Integer> temp = FXCollections.observableArrayList(0, 5, 10, 15, 20, 25, 30);
+    ObservableList<String> cat = FXCollections.observableArrayList();
 
     @FXML
     public void initialize() {
@@ -127,6 +140,13 @@ public class tdbController extends Controller{
                 workoutExercises.setItems(id);
                 System.out.println("success");
                 //workoutExercises.setItems();
+                ResultSet Rs = guiConnect.getAllCategory();
+                while(Rs.next()) {
+                    String temp = "Kategori: " + Rs.getString("navn") + " ID: " + Rs.getString("katID");
+                    cat.add(temp);
+                }
+                categoryList.setItems(cat);
+
             } catch (Exception e) {
 
             }
@@ -237,23 +257,38 @@ public class tdbController extends Controller{
 
         }
     }
-        @FXML
-        private void deleteCategory(){
-            deleteInfo.setVisible(true);
-            try {
-                ResultSet RS = guiConnect.getEmptyCat();
-                while (RS.next()) {
-                    if (RS.getString("navn").equals(deleteCategoryName.getText())) {
-                        guiConnect.deleteCat(RS.getInt("katID"));
-                        deleteInfo.setText("Category deleted");
-                    }
+    @FXML
+    private void deleteCategory(){
+        deleteInfo.setVisible(true);
+        try {
+            ResultSet RS = guiConnect.getEmptyCat();
+            while (RS.next()) {
+                if (RS.getString("navn").equals(deleteCategoryName.getText())) {
+                    guiConnect.deleteCat(RS.getInt("katID"));
+                    deleteInfo.setText("Category deleted");
                 }
-
-            } catch (Exception e) {
-                deleteInfo.setText(("Couldn't delete the category."));
-
             }
-
+        } catch (Exception e) {
+            deleteInfo.setText(("Couldn't delete the category."));
         }
+    }
+    @FXML
+    private void createSubcat() {
+        try {
+            String input = subcatName.getText();
+            int index = input.indexOf(",");
+            String name = input.substring(0, index);
+            int ID = Integer.parseInt(input.substring(index + 1));
+            guiConnect.createSub(name, ID);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        initialize = true;
+    }
+
+    @FXML
+    private void deleteSubcat() {
+
+    }
 
 }
