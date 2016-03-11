@@ -98,6 +98,17 @@ public class tdbController extends Controller{
     @FXML
     private TextArea deleteInfo;
 
+    //Diary
+    @FXML
+    private TableView<Dagbok> diaryTable;
+    @FXML
+    private TableColumn<Dagbok,String> diaryDate = new TableColumn<>();
+    @FXML
+    private TableColumn<Dagbok, String> diaryTime = new TableColumn<>();
+    @FXML
+    private TableColumn<Dagbok, String> diaryNote = new TableColumn<>();
+    @FXML
+    private Button diaryRefresh;
 
     //Other
     private boolean initialize = true;
@@ -112,27 +123,27 @@ public class tdbController extends Controller{
             workoutPerformance.setItems(onetoten);
             workoutShape.setItems(onetoten);
             ObservableList<Mal> mal = FXCollections.observableArrayList();
-            ObservableList<Integer> id = FXCollections.observableArrayList();
-            //Collection<String> malID = new ArrayList<>();
-            //Collection<String> malName = new ArrayList<>();
             ResultSet rs = guiConnect.getAllTemplates(finalUserID);
             workoutTemplatesID.setCellValueFactory(new PropertyValueFactory<Mal,Integer>("malName"));
             workoutTemplatesName.setCellValueFactory(new PropertyValueFactory<Mal,String>("malID"));
+
+
             try {
                 while (rs.next()) {
                     mal.add(new Mal(rs.getString("navn"),rs.getInt("treningsID")));
-                    //id.add(rs.getInt("treningsID"));
                 }
-                //workoutTemplates.setEditable(true);
-                System.out.println(mal);
-                //workoutTemplates.getColumns().setAll(workoutTemplatesID, workoutTemplatesName);
                 workoutTemplates.setItems(mal);
-                workoutExercises.setItems(id);
                 System.out.println("success");
                 //workoutExercises.setItems();
+
+                //////
+
+
+
             } catch (Exception e) {
 
             }
+
             this.initialize = false;
         }
     }
@@ -258,5 +269,24 @@ public class tdbController extends Controller{
             }
 
         }
+
+    @FXML
+    private void refreshDiary(){
+        ObservableList<Dagbok> dbok = FXCollections.observableArrayList();
+        ResultSet res = guiConnect.getDiary(finalUserID);
+        diaryDate.setCellValueFactory(new PropertyValueFactory<Dagbok,String>("dato"));
+        diaryTime.setCellValueFactory(new PropertyValueFactory<Dagbok,String>("tid"));
+        diaryNote.setCellValueFactory(new PropertyValueFactory<Dagbok,String>("notat"));
+        try {
+            while (res.next()) {
+                dbok.add(new Dagbok(String.valueOf(res.getString("dato")),
+                        String.valueOf(res.getString("starttidspunkt")), String.valueOf(res.getString("notat"))));
+            }
+            diaryTable.setItems(dbok);
+        }catch(Exception e){
+        }
+    }
+
+
 
 }

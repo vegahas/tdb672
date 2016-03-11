@@ -325,7 +325,18 @@
                </content></Tab>
             <Tab text="Diary">
                <content>
-                  <TextArea editable="false" minHeight="500.0" minWidth="300.0" prefHeight="200.0" prefWidth="200.0" promptText="No notes yet" />
+                  <AnchorPane>
+                     <children>
+                        <TableView fx:id="diaryTable" layoutY="45.0" prefHeight="802.0" prefWidth="800.0">
+                          <columns>
+                            <TableColumn fx:id="diaryDate" prefWidth="102.0" text="Date" />
+                            <TableColumn fx:id="diaryTime" prefWidth="107.0" text="Time" />
+                              <TableColumn fx:id="diaryNote" prefWidth="591.0" resizable="false" text="Note" />
+                          </columns>
+                        </TableView>
+                        <Button fx:id="diaryRefresh" layoutX="721.0" layoutY="8.0" mnemonicParsing="false" onAction="#refreshDiary" text="Refresh" />
+                     </children>
+                  </AnchorPane>
                </content></Tab>
             <Tab text="Manage">
                <content>

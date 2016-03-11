@@ -11,7 +11,7 @@ public class Diary {
 
     public ResultSet getDiary(int person_id){
         String stmt = "SELECT dato, starttidspunkt, notat FROM treningsøkt " +
-                "ORDER BY dato, starttidspunkt WHERE personID = "+ person_id+";";
+                "WHERE personID = "+ person_id+" ORDER BY dato, starttidspunkt;";
         return dbc.getData(stmt);
     }
 }
