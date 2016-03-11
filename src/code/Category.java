@@ -47,4 +47,18 @@ public class Category {
         String stmt = "SELECT * FROM kategori ORDER BY navn;";
         return dbc.getData(stmt);
     }
+
+    public ResultSet getEmptySubCat(){
+        String stmt = "SELECT navn, ukatID FROM ukategori " +
+                "LEFT JOIN øvelse ON øvelse.ukatID = ukategori.ukatID " +
+                "WHERE øvelsesID IS NULL;";
+        return dbc.getData(stmt);
+    }
+
+    public ResultSet getEmptyCat(){
+        String stmt = "SELECT navn, katID FROM kategori " +
+                "LEFT JOIN ukategori ON kategori.katID = ukategori.katID " +
+                "WHERE ukatID IS NULL;";
+        return dbc.getData(stmt);
+    }
 }

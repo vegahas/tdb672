@@ -54,15 +54,26 @@ public class GUIConnect {
         return category.deleteSub(id);
     }
 
-    /* Get all attributes from every category */
+    /* Get a ResultSet-object with all attributes from every category */
     public ResultSet getAllCategory(){
         return category.getAllCat();
     }
 
-    /*Get all attributes from every sub-category */
+    /* Get a ResultSet-objct with all attributes from every sub-category */
     public ResultSet getAllSubCategory(){
         return category.getAllSubCat();
     }
+
+    /* Get a ResultSet-object with name and ID of all categories without subcatgories */
+    public ResultSet getEmptyCat(){
+        return category.getEmptyCat();
+    }
+
+    /* Get a ResultSet-object with name and ID of all subcategories without exercises */
+    public ResultSet getEmptySubCat(){
+        return category.getEmptySubCat();
+    }
+
 
 /* DIARY */
     /* Get a ResultSet-object with date, time and note. Sorted ascending by date, time */
