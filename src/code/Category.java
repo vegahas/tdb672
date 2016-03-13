@@ -49,7 +49,7 @@ public class Category {
     }
 
     public ResultSet getEmptyCat(){
-        String stmt = "SELECT navn, katID FROM kategori " +
+        String stmt = "SELECT kategori.navn, kategori.katID FROM kategori " +
                 "LEFT JOIN ukategori ON kategori.katID = ukategori.katID " +
                 "WHERE ukatID IS NULL;";
         return dbc.getData(stmt);

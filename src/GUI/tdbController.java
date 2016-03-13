@@ -86,21 +86,19 @@ public class tdbController extends Controller{
     private TextArea exerciseInfo;
     @FXML
     private TextField delExerciseInfo;
+    @FXML
+    private TextField subCat;
 
-    //Category
     //Category
     @FXML
     private TextField categoryName;
     @FXML
     private Button categoryCreate;
     @FXML
-    private TextArea categoryInfo;
-    @FXML
     private TextField deleteCategoryName;
     @FXML
     private Button categoryDelete;
-    @FXML
-    private TextArea deleteInfo;
+
 
     //Subcategory
     @FXML
@@ -252,7 +250,13 @@ public class tdbController extends Controller{
     private void createExercise(){
         exerciseInfo.setVisible(true);
         try{
-            int subCatID = 1; //needs to be fixed
+            ResultSet RtSt = guiConnect.getAllSubCategory();
+            int subCatID = 0;
+            while (RtSt.next()) {
+                if (RtSt.getString("navn").equals(subCat.getText())) {
+                    subCatID = RtSt.getInt("ukatID");
+                }
+            }
             if ((guiConnect.loadExerciseToDB(exerciseName.getText(), exerciseDescription.getText(), Integer.parseInt(exerciseLoad.getText()),
                     Integer.parseInt(exerciseReps.getText()), Integer.parseInt(exerciseSets.getText()), subCatID))){
                 exerciseInfo.setText("Success");
@@ -276,6 +280,7 @@ public class tdbController extends Controller{
             while (ResSet.next()) {
                 if (ResSet.getString("navn").equals(delExerciseInfo.getText())) {
                     guiConnect.deleteExercise(ResSet.getInt("øvelsesID"));
+                    delExerciseInfo.setText("Exercise deleted.");
                 }
             }
         } catch (Exception e) {
@@ -288,28 +293,26 @@ public class tdbController extends Controller{
     //Category**********************************************************************************************************************
     @FXML
     private void createCategory() {
-        categoryInfo.setVisible(true);
         try {
             guiConnect.createCat(categoryName.getText());
-            categoryInfo.setText("Category created");
+            categoryName.setText("Category created");
         } catch (Exception e) {
-            categoryInfo.setText(("Try again..."));
-
+            categoryName.setText("Try again...");
         }
     }
     @FXML
     private void deleteCategory(){
-        deleteInfo.setVisible(true);
         try {
-            ResultSet RS = guiConnect.getEmptyCat();
-            while (RS.next()) {
-                if (RS.getString("navn").equals(deleteCategoryName.getText())) {
-                    guiConnect.deleteCat(RS.getInt("katID"));
-                    deleteInfo.setText("Category deleted");
+            ResultSet RSS = guiConnect.getEmptyCat();
+            while (RSS.next()) {
+                if (RSS.getString("navn").equals(deleteCategoryName.getText())) {
+                    guiConnect.deleteCat(RSS.getInt("katID"));
+                    deleteCategoryName.setText("Category deleted");
+                    break;
                 }
             }
         } catch (Exception e) {
-            deleteInfo.setText(("Couldn't delete the category."));
+            System.out.println(e);
         }
     }
     @FXML
@@ -320,9 +323,10 @@ public class tdbController extends Controller{
             String name = input.substring(0, index);
             int ID = Integer.parseInt(input.substring(index + 1));
             guiConnect.createSub(name, ID);
+            subcatName.setText("Sub category created.");
         } catch (Exception e) {
             System.out.println(e);
-            }
+        }
         initialize = true;
     }
 
@@ -333,6 +337,8 @@ public class tdbController extends Controller{
             while (rs.next()) {
                 if ( rs.getString("navn").equals(deleteSubcatName.getText())) {
                     guiConnect.deleteSub(rs.getInt("ukatID"));
+                    deleteSubcatName.setText("Sub category deleted.");
+                    break;
                 }
             }
         } catch (Exception e) {
