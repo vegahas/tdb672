@@ -81,7 +81,11 @@ public class tdbController extends Controller{
     @FXML
     private Button exerciseCreate;
     @FXML
+    private Button exerciseDelete;
+    @FXML
     private TextArea exerciseInfo;
+    @FXML
+    private TextField delExerciseInfo;
 
     //Category
     //Category
@@ -249,9 +253,10 @@ public class tdbController extends Controller{
         exerciseInfo.setVisible(true);
         try{
             int subCatID = 1; //needs to be fixed
-            if ((guiConnect.loadExerciseToDB(exerciseName.getText(), exerciseDescription.getText(), Integer.valueOf(exerciseLoad.getText()),
-                    Integer.valueOf(exerciseReps.getText()), Integer.valueOf(exerciseSets.getText()), subCatID))){
+            if ((guiConnect.loadExerciseToDB(exerciseName.getText(), exerciseDescription.getText(), Integer.parseInt(exerciseLoad.getText()),
+                    Integer.parseInt(exerciseReps.getText()), Integer.parseInt(exerciseSets.getText()), subCatID))){
                 exerciseInfo.setText("Success");
+
             }
             else{
                 exerciseInfo.setText("Error");
@@ -260,7 +265,23 @@ public class tdbController extends Controller{
         }
         catch (Exception e){
             exerciseInfo.setText("Error");
+            System.out.println(e.toString());
+            System.out.println(e.getMessage());
         }
+    }
+    @FXML
+    private void deleteExercise(){
+        try {
+            ResultSet ResSet = guiConnect.getIDNamesExercise();
+            while (ResSet.next()) {
+                if (ResSet.getString("navn").equals(delExerciseInfo.getText())) {
+                    guiConnect.deleteExercise(ResSet.getInt("øvelsesID"));
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
     }
 
 
@@ -336,7 +357,5 @@ public class tdbController extends Controller{
         }catch(Exception e){
         }
     }
-
-//test
 
 }
