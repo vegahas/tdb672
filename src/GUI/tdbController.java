@@ -9,7 +9,9 @@ import javafx.scene.layout.AnchorPane;
 
 import java.sql.Date;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -103,6 +105,10 @@ public class tdbController extends Controller{
     private Button exerciseCreate;
     @FXML
     private TextArea exerciseInfo;
+    @FXML
+    private TextField subCat;
+    @FXML
+    private TextField delExerciseInfo;
 
     //EXERCISE SHOW ALL-TABLE
     @FXML
@@ -285,25 +291,28 @@ public class tdbController extends Controller{
         workoutStartCol.setCellValueFactory(new PropertyValueFactory<Trening,String>("workoutStartCol"));
         workoutDurCol.setCellValueFactory(new PropertyValueFactory<Trening,Integer>("workoutDurCol"));
         workoutShapeCol.setCellValueFactory(new PropertyValueFactory<Trening,Integer>("workoutShapeCol"));
-        workoutPerformnaceCol.setCellValueFactory(new PropertyValueFactory<Trening,Integer>("workoutPerformnaceCol"));
+        workoutPerformnaceCol.setCellValueFactory(new PropertyValueFactory<Trening,Integer>("workoutPerformanceCol"));
         workoutExercisesCol.setCellValueFactory(new PropertyValueFactory<Trening,String>("workoutExercisesCol"));
+        List<Trening> workouts = new ArrayList<Trening>();
         try {
             ResultSet res = guiConnect.getAllforAllWorkouts(finalUserID);
             while (res.next()) {
+                Trening treningEl = new Trening(res.getInt("treningsID"), String.valueOf(res.getDate("dato")), String.valueOf(res.getTime("starttidspunkt")),
+                        res.getInt("varighet"), res.getInt("personligForm"), res.getInt("prestasjon"), "");
+                workouts.add(treningEl);
+            }
+            res.close();
+            for (Trening workout:workouts) {
+                Integer workoutID = workout.getWorkoutIDcol();
+                ResultSet res2 = guiConnect.getExercisesForWorkout(finalUserID, workoutID);
                 String exercises = "";
-                Integer workoutID = res.getInt("treningsID");
-                Trening treningEl = new Trening(workoutID, String.valueOf(res.getDate("dato")), String.valueOf(res.getTime("starttidspunkt")),
-                        res.getInt("varighet"), res.getInt("personligForm"), res.getInt("prestasjon"), exercises);
-                ResultSet res2 = guiConnect.getExercisesForWorkout(finalUserID,workoutID);
                 while (res2.next()) {
                     exercises += res2.getInt("øvelsesID") + " " + res2.getString("navn") + "| ";
                 }
                 res2.close();
-                treningEl.setWorkoutExercisesCol(exercises);
-                System.out.println(exercises);
-                trening.add(treningEl);
+                workout.setWorkoutExercisesCol(exercises);
             }
-            res.close();
+            trening.addAll(workouts);
             workoutSAtab.setItems(trening);
         }catch(Exception e){
             System.out.println(e);
@@ -313,17 +322,21 @@ public class tdbController extends Controller{
 
     //Exercise**************************************************************************************************************
     @FXML
-    private void createExercise(){}/*
+    private void createExercise(){
         exerciseInfo.setVisible(true);
         try{
             ResultSet RtSt = guiConnect.getAllSubCategory();
             int subCatID = 0;
+            String subCategory = subCat.getText().toLowerCase().trim();
             while (RtSt.next()) {
-                if (RtSt.getString("navn").equals(subCat.getText())) {
+                String sub = RtSt.getString("navn").toLowerCase().trim();
+                if (sub.equals(subCategory)) {
                     subCatID = RtSt.getInt("ukatID");
+                    break;
                 }
             }
-            if ((guiConnect.loadExerciseToDB(exerciseName.getText(), exerciseDescription.getText(), Integer.parseInt(exerciseLoad.getText()),
+            RtSt.close();
+            if ((subCatID != 0 && guiConnect.loadExerciseToDB(exerciseName.getText(), exerciseDescription.getText(), Integer.parseInt(exerciseLoad.getText()),
                     Integer.parseInt(exerciseReps.getText()), Integer.parseInt(exerciseSets.getText()), subCatID))){
                 exerciseInfo.setText("Success");
 
@@ -331,30 +344,34 @@ public class tdbController extends Controller{
             else{
                 exerciseInfo.setText("Error");
             }
-
         }
         catch (Exception e){
             exerciseInfo.setText("Error");
             System.out.println(e.toString());
             System.out.println(e.getMessage());
         }
-    }*/
+    }
 
     @FXML
-    private void deleteExercise(){}/*
+    private void deleteExercise(){ // !! need to fix unique names for exercises ++++
         try {
             ResultSet ResSet = guiConnect.getIDNamesExercise();
+            String exerciseName = delExerciseInfo.getText().toLowerCase().trim();
             while (ResSet.next()) {
-                if (ResSet.getString("navn").equals(delExerciseInfo.getText())) {
+                String exName = ResSet.getString("navn").toLowerCase().trim();
+                if (exName.equals(exerciseName)) {
                     guiConnect.deleteExercise(ResSet.getInt("øvelsesID"));
                     delExerciseInfo.setText("Exercise deleted.");
+                    return;
                 }
             }
+            delExerciseInfo.setText("Exercise not found");
         } catch (Exception e) {
             System.out.println(e);
+            delExerciseInfo.setText("Exercise not found");
         }
 
-    }*/
+    }
 
     @FXML
     private void refreshExerciseShowAll() {
@@ -367,28 +384,25 @@ public class tdbController extends Controller{
         exerciseSubCatCol.setCellValueFactory(new PropertyValueFactory<Ovelse, String>("exerciseSubCatCol"));
         exerciseDescriptionCol.setCellValueFactory(new PropertyValueFactory<Ovelse, String>("exerciseDescriptionCol"));
         Map<Integer, String> subCat = new HashMap<>();
+        List<Integer> exerciseIDs = new ArrayList<>();
         try {
             ResultSet res3 = guiConnect.getAllSubCategory();
             while (res3.next()){
                 subCat.put(res3.getInt("ukatID"), res3.getString("navn"));
             }
             res3.close();
-            System.out.println(subCat);
             ResultSet res = guiConnect.getIDNamesExercise();
             while (res.next()) {
                 Integer exerciseID = res.getInt("øvelsesID");
-                System.out.println(exerciseID);
-                String exerciseName = res.getString("navn");
-                System.out.println(exerciseName);
-                ResultSet res2 = guiConnect.getInfoExercise(exerciseID); //STOP
-                while(res2.next()) { //runs only once
-                    Ovelse o = new Ovelse(exerciseID, exerciseName, res2.getInt("belastning"),
+                exerciseIDs.add(exerciseID);
+            }
+            for (Integer exerciseID:exerciseIDs) {
+                ResultSet res2 = guiConnect.getInfoExercise(exerciseID);
+                while (res2.next()) { //runs only once
+                    Ovelse o = new Ovelse(exerciseID, res2.getString("navn"), res2.getInt("belastning"),
                             res2.getInt("antall_repetisjoner"), res2.getInt("antall_sett"),
                             subCat.get(res2.getInt("ukatID")), res2.getString("beskrivelse"));
-                    System.out.println(o);
                     ovelse.add(o);
-                    System.out.println(ovelse);
-                    break;
                 }
                 res2.close();
             }
