@@ -290,7 +290,7 @@ public class tdbController extends Controller{
             while (res.next()) {
                 String exercises = "";
                 Integer workoutID = res.getInt("treningsID");
-                System.out.println(workoutID);
+                System.out.println(workoutID); //FUNKE HIT
                 ResultSet res2 = guiConnect.getExercisesForWorkout(finalUserID,workoutID);
                 ResultSet res3 = guiConnect.getWorkoutInfo(finalUserID, workoutID, true);
                 while (res2.next()){
@@ -309,7 +309,7 @@ public class tdbController extends Controller{
 
     //Exercise**************************************************************************************************************
     @FXML
-    private void createExercise(){
+    private void createExercise(){}/*
         exerciseInfo.setVisible(true);
         try{
             ResultSet RtSt = guiConnect.getAllSubCategory();
@@ -334,10 +334,10 @@ public class tdbController extends Controller{
             System.out.println(e.toString());
             System.out.println(e.getMessage());
         }
-    }
-    /*
+    }*/
+
     @FXML
-    private void deleteExercise(){
+    private void deleteExercise(){}/*
         try {
             ResultSet ResSet = guiConnect.getIDNamesExercise();
             while (ResSet.next()) {
@@ -351,18 +351,18 @@ public class tdbController extends Controller{
         }
 
     }*/
-
+/*
     @FXML
     private void refreshExerciseShowAll() {
         ObservableList<Ovelse> ovelse = FXCollections.observableArrayList();
-        ResultSet res = guiConnect
-        workoutIDcol.setCellValueFactory(new PropertyValueFactory<Trening, Integer>("workoutIDcol"));
-        workoutDateCol.setCellValueFactory(new PropertyValueFactory<Trening, String>("workoutDateCol"));
-        workoutStartCol.setCellValueFactory(new PropertyValueFactory<Trening, String>("workoutStartCol"));
-        workoutDurCol.setCellValueFactory(new PropertyValueFactory<Trening, Integer>("workoutDurCol"));
-        workoutShapeCol.setCellValueFactory(new PropertyValueFactory<Trening, Integer>("workoutShapeCol"));
-        workoutPerformnaceCol.setCellValueFactory(new PropertyValueFactory<Trening, Integer>("workoutPerformnaceCol"));
-        workoutExercisesCol.setCellValueFactory(new PropertyValueFactory<Trening, String>("workoutExercisesCol"));
+        ResultSet res = guiConnect.getIDNamesExercise();
+        exerciseIDcol.setCellValueFactory(new PropertyValueFactory<Ovelse, Integer>("exerciseIDcol"));
+        exerciseNameCol.setCellValueFactory(new PropertyValueFactory<Ovelse, String>("exerciseNameCol"));
+        exerciseLoadCol.setCellValueFactory(new PropertyValueFactory<Ovelse, Integer>("exerciseLoadCol"));
+        exerciseRepsCol.setCellValueFactory(new PropertyValueFactory<Ovelse, Integer>("exerciseRepsCol"));
+        exerciseSetsCol.setCellValueFactory(new PropertyValueFactory<Ovelse, Integer>("exerciseSetsCol"));
+        exerciseSubCatCol.setCellValueFactory(new PropertyValueFactory<Ovelse, String>("exerciseSubCatCol"));
+        exerciseDescriptionCol.setCellValueFactory(new PropertyValueFactory<Ovelse, String>("exerciseDescriptionCol"));
         try {
             while (res.next()) {
                 String exercises = "";
@@ -377,11 +377,12 @@ public class tdbController extends Controller{
                 trening.add(new Trening(workoutID, String.valueOf(res3.getDate("dato")), String.valueOf(res3.getTime("starttidspunkt")),
                         res3.getInt("varighet"), res3.getInt("personligForm"), res3.getInt("prestasjon"), exercises));
             }
-            workoutSAtab.setItems(trening);
+            exerciseSAtab.setItems(ovelse);
         } catch (Exception e) {
             System.out.println(e);
         }
     }
+    */
     //Category**********************************************************************************************************************
     @FXML
     private void createCategory() {

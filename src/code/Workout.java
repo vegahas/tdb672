@@ -109,7 +109,7 @@ public class Workout {
     public ResultSet getExercisesForWorkout(int person_id, int workout_id){
         String stmt = "SELECT øvelsesID, navn FROM øvelse " +
                 "INNER JOIN treningsøvelse ON øvelse.personID = treningsøvelse.personID AND " +
-                "øvelse.øvelsesID AND treningsøvelse.øvelsesID " +
+                "øvelse.øvelsesID = treningsøvelse.øvelsesID " +
                 "WHERE personID = "+person_id+" AND treningsID = "+workout_id+";";
         return dbc.getData(stmt);
     }
