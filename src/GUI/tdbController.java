@@ -63,6 +63,25 @@ public class tdbController extends Controller{
     @FXML
     private AnchorPane exerciseTempPane;
 
+    //WORKOUT SHOW ALL-TABLE
+    @FXML
+    private TableView<Trening> workoutSAtab;
+    @FXML
+    private TableColumn<Trening, Integer> workoutIDcol;
+    @FXML
+    private TableColumn<Trening, String> workoutDateCol;
+    @FXML
+    private TableColumn<Trening, String> workoutStartCol;
+    @FXML
+    private TableColumn<Trening, Integer> workoutDurCol;
+    @FXML
+    private TableColumn<Trening, Integer> workoutShapeCol;
+    @FXML
+    private TableColumn<Trening, Integer> workoutPerformnaceCol;
+    @FXML
+    private TableColumn<Trening, String> workoutExercisesCol;
+
+
     //EXERCISE
     @FXML
     private TextField exerciseName;
@@ -82,6 +101,24 @@ public class tdbController extends Controller{
     private Button exerciseCreate;
     @FXML
     private TextArea exerciseInfo;
+
+    //EXERCISE SHOW ALL-TABLE
+    @FXML
+    private TableView<Ovelse> exerciseSAtab;
+    @FXML
+    private TableColumn<Ovelse, Integer> exerciseIDcol;
+    @FXML
+    private TableColumn<Ovelse, String> exerciseNameCol;
+    @FXML
+    private TableColumn<Ovelse, Integer> exerciseLoadCol;
+    @FXML
+    private TableColumn<Ovelse, Integer> exerciseRepsCol;
+    @FXML
+    private TableColumn<Ovelse, Integer> exerciseSetsCol;
+    @FXML
+    private TableColumn<Ovelse, String> exerciseSubCatCol;
+    @FXML
+    private TableColumn<Ovelse, String> exerciseDescriptionCol;
 
     //Category
     //Category
@@ -242,6 +279,37 @@ public class tdbController extends Controller{
         }
     }
 
+    @FXML
+    private void refreshWorkoutShowAll(){
+        ObservableList<Trening> trening = FXCollections.observableArrayList();
+        ResultSet res = guiConnect.getAllWorkouts(finalUserID);
+        workoutIDcol.setCellValueFactory(new PropertyValueFactory<Trening,Integer>("workoutIDcol"));
+        workoutDateCol.setCellValueFactory(new PropertyValueFactory<Trening,String>("workoutDateCol"));
+        workoutStartCol.setCellValueFactory(new PropertyValueFactory<Trening,String>("workoutStartCol"));
+        workoutDurCol.setCellValueFactory(new PropertyValueFactory<Trening,Integer>("workoutDurCol"));
+        workoutShapeCol.setCellValueFactory(new PropertyValueFactory<Trening,Integer>("workoutShapeCol"));
+        workoutPerformnaceCol.setCellValueFactory(new PropertyValueFactory<Trening,Integer>("workoutPerformnaceCol"));
+        workoutExercisesCol.setCellValueFactory(new PropertyValueFactory<Trening,String>("workoutExercisesCol"));
+        try {
+            while (res.next()) {
+                String exercises = "";
+                Integer workoutID = res.getInt("treningsID");
+                System.out.println(workoutID);
+                ResultSet res2 = guiConnect.getExercisesForWorkout(finalUserID,workoutID);
+                ResultSet res3 = guiConnect.getWorkoutInfo(finalUserID, workoutID, true);
+                while (res2.next()){
+                    exercises += res2.getInt("øvelsesID")+" " + res2.getString("navn") + "| ";
+                }
+                System.out.println(exercises);
+                trening.add(new Trening(workoutID, String.valueOf(res3.getDate("dato")), String.valueOf(res3.getTime("starttidspunkt")),
+                        res3.getInt("varighet"), res3.getInt("personligForm"), res3.getInt("prestasjon"), exercises));
+            }
+            workoutSAtab.setItems(trening);
+        }catch(Exception e){
+            System.out.println(e);
+        }
+    }
+
 
     //Exercise**************************************************************************************************************
     @FXML
@@ -262,8 +330,6 @@ public class tdbController extends Controller{
             exerciseInfo.setText("Error");
         }
     }
-
-
     //Category**********************************************************************************************************************
     @FXML
     private void createCategory() {

@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
@@ -23,7 +28,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane minHeight="900.0" minWidth="800.0" prefHeight="500.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.tdbController">
+<AnchorPane minHeight="900.0" minWidth="800.0" prefHeight="500.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.tdbController">
    <children>
       <TabPane maxHeight="500.0" maxWidth="500.0" minHeight="900.0" minWidth="800.0" prefHeight="643.0" prefWidth="646.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
@@ -101,12 +106,28 @@
                         </Tab>
                         <Tab closable="false" text="Show all">
                            <content>
-                              <SplitPane dividerPositions="0.29797979797979796" prefHeight="160.0" prefWidth="200.0">
-                                <items>
-                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" />
-                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" />
-                                </items>
-                              </SplitPane>
+                              <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                                 <children>
+                                    <TableView fx:id="workoutSAtab" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                      <columns>
+                                        <TableColumn fx:id="workoutIDcol" maxWidth="150.0" minWidth="75.0" prefWidth="75.0" text="ID" />
+                                        <TableColumn fx:id="workoutDateCol" prefWidth="75.0" text="Date" />
+                                          <TableColumn fx:id="workoutStartCol" prefWidth="75.0" text="Start" />
+                                          <TableColumn fx:id="workoutDurCol" maxWidth="2000.0" minWidth="75.0" prefWidth="75.0" text="Duration" />
+                                          <TableColumn fx:id="workoutShapeCol" maxWidth="150.0" minWidth="75.0" prefWidth="75.0" text="Shape" />
+                                          <TableColumn fx:id="workoutPerformnaceCol" maxWidth="150.0" minWidth="75.0" prefWidth="75.0" text="Performance" />
+                                          <TableColumn fx:id="workoutExercisesCol" maxWidth="500.0" minWidth="250.0" prefWidth="250.0" text="Exercises" />
+                                      </columns>
+                                       <columnResizePolicy>
+                                          <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                       </columnResizePolicy>
+                                       <padding>
+                                          <Insets top="50.0" />
+                                       </padding>
+                                    </TableView>
+                                    <Button mnemonicParsing="false" onAction="#refreshWorkoutShowAll" text="Refresh" AnchorPane.leftAnchor="650.0" AnchorPane.topAnchor="10.0" />
+                                 </children>
+                              </AnchorPane>
                            </content></Tab>
                      </tabs>
                   </TabPane>
@@ -227,12 +248,28 @@
                       </Tab>
                       <Tab text="Show all">
                            <content>
-                              <SplitPane dividerPositions="0.46" prefHeight="160.0" prefWidth="200.0">
-                                <items>
-                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" />
-                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" />
-                                </items>
-                              </SplitPane>
+                              <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                                 <children>
+                                    <TableView fx:id="exerciseSAtab" prefHeight="822.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                      <columns>
+                                        <TableColumn fx:id="exerciseIDcol" maxWidth="150.0" minWidth="50.0" prefWidth="50.0" text="ID" />
+                                        <TableColumn fx:id="exerciseNameCol" prefWidth="75.0" text="Name" />
+                                          <TableColumn fx:id="exerciseLoadCol" maxWidth="150.0" minWidth="50.0" prefWidth="50.0" text="Load" />
+                                          <TableColumn fx:id="exerciseRepsCol" maxWidth="150.0" minWidth="50.0" prefWidth="50.0" text="Reps" />
+                                          <TableColumn fx:id="exerciseSetsCol" maxWidth="150.0" minWidth="50.0" prefWidth="50.0" text="Sets" />
+                                          <TableColumn fx:id="exerciseSubCatCol" prefWidth="75.0" text="Sub-category" />
+                                          <TableColumn fx:id="exerciseDescriptionCol" minWidth="100.0" prefWidth="200.0" text="Description" />
+                                      </columns>
+                                       <columnResizePolicy>
+                                          <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                       </columnResizePolicy>
+                                       <padding>
+                                          <Insets top="50.0" />
+                                       </padding>
+                                    </TableView>
+                                    <Button mnemonicParsing="false" text="Refresh" AnchorPane.leftAnchor="650.0" AnchorPane.topAnchor="10.0" />
+                                 </children>
+                              </AnchorPane>
                            </content>
                       </Tab>
                     </tabs>
