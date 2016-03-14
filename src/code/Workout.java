@@ -96,19 +96,19 @@ public class Workout {
             stmt = "SELECT * FROM treningsøkt " +
                     "INNER JOIN innetrening ON innetrening.personID = treningsøkt.personID AND " +
                     "innetrening.treningsID = treningsøkt.treningsID " +
-                    "WHERE personID = " + person_id + " AND treningsID = " + workout_id + ";";
+                    "WHERE treningsøkt.personID = " + person_id + " AND treningsøkt.treningsID = " + workout_id + ";";
         }else{
             stmt = "SELECT * FROM treningsøkt " +
                     "INNER JOIN utetrening ON utetrening.personID = treningsøkt.personID AND " +
                     "utetrening.treningsID = treningsøkt.treningsID " +
-                    "WHERE personID = "+person_id+" AND treningsID = "+workout_id+";";
+                    "WHERE treningsøkt.personID = "+person_id+" AND treningsøkt.treningsID = "+workout_id+";";
         }
         return dbc.getData(stmt);
     }
 
     public ResultSet getExercisesForWorkout(int person_id, int workout_id){
-        String stmt = "SELECT øvelsesID, navn FROM øvelse " +
-                "INNER JOIN treningsøvelse ON øvelse.personID = treningsøvelse.personID AND " +
+        String stmt = "SELECT øvelse.øvelsesID, navn FROM øvelse " +
+                "INNER JOIN treningsøvelse ON " +
                 "øvelse.øvelsesID = treningsøvelse.øvelsesID " +
                 "WHERE personID = "+person_id+" AND treningsID = "+workout_id+";";
         return dbc.getData(stmt);
