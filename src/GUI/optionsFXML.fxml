@@ -154,6 +154,7 @@
                                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                               <RowConstraints maxHeight="90.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="90.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
                                                 <RowConstraints maxHeight="140.0" minHeight="10.0" prefHeight="140.0" vgrow="SOMETIMES" />
                                             </rowConstraints>
                                              <children>
@@ -192,7 +193,7 @@
                                                       <Insets left="150.0" />
                                                    </GridPane.margin>
                                                 </TextArea>
-                                                <Button fx:id="exerciseCreate" minHeight="55.0" minWidth="100.0" mnemonicParsing="false" onAction="#createExercise" text="Create" GridPane.rowIndex="7">
+                                                <Button fx:id="exerciseCreate" minHeight="55.0" minWidth="100.0" mnemonicParsing="false" onAction="#createExercise" text="Create" GridPane.rowIndex="8">
                                                    <GridPane.margin>
                                                       <Insets left="100.0" />
                                                    </GridPane.margin>
@@ -232,11 +233,21 @@
                                                       <Insets left="40.0" />
                                                    </GridPane.margin>
                                                 </Label>
-                                                <TextArea fx:id="exerciseInfo" editable="false" maxWidth="200.0" prefHeight="200.0" prefWidth="200.0" visible="false" GridPane.rowIndex="7">
+                                                <TextArea fx:id="exerciseInfo" editable="false" maxWidth="200.0" prefHeight="200.0" prefWidth="200.0" visible="false" GridPane.rowIndex="8">
                                                    <GridPane.margin>
                                                       <Insets left="230.0" />
                                                    </GridPane.margin>
                                                 </TextArea>
+                                                <Label text="Sub Category" GridPane.rowIndex="7">
+                                                   <GridPane.margin>
+                                                      <Insets left="40.0" />
+                                                   </GridPane.margin>
+                                                </Label>
+                                                <TextField fx:id="subCat" maxWidth="200.0" GridPane.rowIndex="7">
+                                                   <GridPane.margin>
+                                                      <Insets left="150.0" />
+                                                   </GridPane.margin>
+                                                </TextField>
                                              </children>
                                           </GridPane>
                                        </children>
@@ -460,11 +471,6 @@
                                                 <Insets left="100.0" />
                                              </GridPane.margin>
                                           </Label>
-                                          <TextArea fx:id="categoryInfo" maxHeight="40.0" maxWidth="200.0" prefHeight="200.0" prefWidth="200.0" visible="false">
-                                             <GridPane.margin>
-                                                <Insets left="340.0" top="80.0" />
-                                             </GridPane.margin>
-                                          </TextArea>
                                           <TextField fx:id="deleteCategoryName" maxWidth="180.0" GridPane.rowIndex="1">
                                              <GridPane.margin>
                                                 <Insets left="320.0" />
@@ -580,7 +586,7 @@
                                                 <Insets bottom="100.0" />
                                              </padding>
                                           </Separator>
-                                          <Button minHeight="55.0" minWidth="100.0" mnemonicParsing="false" text="Delete">
+                                          <Button fx:id="exerciseDelete" minHeight="55.0" minWidth="100.0" mnemonicParsing="false" onAction="#deleteExercise" text="Delete">
                                              <GridPane.margin>
                                                 <Insets left="650.0" />
                                              </GridPane.margin>
@@ -598,6 +604,16 @@
                                                 <Insets left="100.0" top="140.0" />
                                              </GridPane.margin>
                                           </Label>
+                                          <Label text="Name:">
+                                             <GridPane.margin>
+                                                <Insets left="260.0" />
+                                             </GridPane.margin>
+                                          </Label>
+                                          <TextField fx:id="delExerciseInfo" maxWidth="180.0">
+                                             <GridPane.margin>
+                                                <Insets left="320.0" />
+                                             </GridPane.margin>
+                                          </TextField>
                                        </children>
                                        <columnConstraints>
                                           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
