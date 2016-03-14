@@ -80,7 +80,7 @@ public class Workout {
     }
 
     public ResultSet getAllWorkouts(int person_id){
-        String stmt = "SELECT treningsID, dato, starttidspunkt FROM treningsøkt WHERE personID = "+person_id+";";
+        String stmt = "SELECT treningsID, dato, starttidspunkt, varighet, personligForm, prestasjon FROM treningsøkt WHERE personID = "+person_id+";";
         return dbc.getData(stmt);
     }
 
@@ -125,7 +125,7 @@ public class Workout {
                 "INNER JOIN treningsøvelse ON treningsøkt.treningsID = treningsøvelse.treningsID " +
                 "AND treningsøkt.personID = treningsøvelse.personID " +
                 "INNER JOIN øvelse ON øvelse.øvelsesID = treningsøvelse.øvelsesID " +
-                "WHERE personID = "+person_id+";";
+                "WHERE treningsøkt.personID = "+person_id+";";
         return dbc.getData(stmt);
     }
 }

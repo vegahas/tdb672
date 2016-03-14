@@ -9,6 +9,8 @@ import javafx.scene.layout.AnchorPane;
 
 import java.sql.Date;
 import java.sql.ResultSet;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Jenny on 01.03.2016.
@@ -278,7 +280,6 @@ public class tdbController extends Controller{
     @FXML
     private void refreshWorkoutShowAll(){
         ObservableList<Trening> trening = FXCollections.observableArrayList();
-        ResultSet res = guiConnect.getAllWorkouts(finalUserID);
         workoutIDcol.setCellValueFactory(new PropertyValueFactory<Trening,Integer>("workoutIDcol"));
         workoutDateCol.setCellValueFactory(new PropertyValueFactory<Trening,String>("workoutDateCol"));
         workoutStartCol.setCellValueFactory(new PropertyValueFactory<Trening,String>("workoutStartCol"));
@@ -287,19 +288,22 @@ public class tdbController extends Controller{
         workoutPerformnaceCol.setCellValueFactory(new PropertyValueFactory<Trening,Integer>("workoutPerformnaceCol"));
         workoutExercisesCol.setCellValueFactory(new PropertyValueFactory<Trening,String>("workoutExercisesCol"));
         try {
+            ResultSet res = guiConnect.getAllforAllWorkouts(finalUserID);
             while (res.next()) {
                 String exercises = "";
                 Integer workoutID = res.getInt("treningsID");
-                System.out.println(workoutID); //FUNKE HIT
+                Trening treningEl = new Trening(workoutID, String.valueOf(res.getDate("dato")), String.valueOf(res.getTime("starttidspunkt")),
+                        res.getInt("varighet"), res.getInt("personligForm"), res.getInt("prestasjon"), exercises);
                 ResultSet res2 = guiConnect.getExercisesForWorkout(finalUserID,workoutID);
-                ResultSet res3 = guiConnect.getWorkoutInfo(finalUserID, workoutID, true);
-                while (res2.next()){
-                    exercises += res2.getInt("øvelsesID")+" " + res2.getString("navn") + "| ";
+                while (res2.next()) {
+                    exercises += res2.getInt("øvelsesID") + " " + res2.getString("navn") + "| ";
                 }
+                res2.close();
+                treningEl.setWorkoutExercisesCol(exercises);
                 System.out.println(exercises);
-                trening.add(new Trening(workoutID, String.valueOf(res3.getDate("dato")), String.valueOf(res3.getTime("starttidspunkt")),
-                        res3.getInt("varighet"), res3.getInt("personligForm"), res3.getInt("prestasjon"), exercises));
+                trening.add(treningEl);
             }
+            res.close();
             workoutSAtab.setItems(trening);
         }catch(Exception e){
             System.out.println(e);
@@ -351,11 +355,10 @@ public class tdbController extends Controller{
         }
 
     }*/
-/*
+
     @FXML
     private void refreshExerciseShowAll() {
         ObservableList<Ovelse> ovelse = FXCollections.observableArrayList();
-        ResultSet res = guiConnect.getIDNamesExercise();
         exerciseIDcol.setCellValueFactory(new PropertyValueFactory<Ovelse, Integer>("exerciseIDcol"));
         exerciseNameCol.setCellValueFactory(new PropertyValueFactory<Ovelse, String>("exerciseNameCol"));
         exerciseLoadCol.setCellValueFactory(new PropertyValueFactory<Ovelse, Integer>("exerciseLoadCol"));
@@ -363,26 +366,38 @@ public class tdbController extends Controller{
         exerciseSetsCol.setCellValueFactory(new PropertyValueFactory<Ovelse, Integer>("exerciseSetsCol"));
         exerciseSubCatCol.setCellValueFactory(new PropertyValueFactory<Ovelse, String>("exerciseSubCatCol"));
         exerciseDescriptionCol.setCellValueFactory(new PropertyValueFactory<Ovelse, String>("exerciseDescriptionCol"));
+        Map<Integer, String> subCat = new HashMap<>();
         try {
+            ResultSet res3 = guiConnect.getAllSubCategory();
+            while (res3.next()){
+                subCat.put(res3.getInt("ukatID"), res3.getString("navn"));
+            }
+            res3.close();
+            System.out.println(subCat);
+            ResultSet res = guiConnect.getIDNamesExercise();
             while (res.next()) {
-                String exercises = "";
-                Integer workoutID = res.getInt("treningsID");
-                System.out.println(workoutID);
-                ResultSet res2 = guiConnect.getExercisesForWorkout(finalUserID, workoutID);
-                ResultSet res3 = guiConnect.getWorkoutInfo(finalUserID, workoutID, true);
-                while (res2.next()) {
-                    exercises += res2.getInt("øvelsesID") + " " + res2.getString("navn") + "| ";
+                Integer exerciseID = res.getInt("øvelsesID");
+                System.out.println(exerciseID);
+                String exerciseName = res.getString("navn");
+                System.out.println(exerciseName);
+                ResultSet res2 = guiConnect.getInfoExercise(exerciseID); //STOP
+                while(res2.next()) { //runs only once
+                    Ovelse o = new Ovelse(exerciseID, exerciseName, res2.getInt("belastning"),
+                            res2.getInt("antall_repetisjoner"), res2.getInt("antall_sett"),
+                            subCat.get(res2.getInt("ukatID")), res2.getString("beskrivelse"));
+                    System.out.println(o);
+                    ovelse.add(o);
+                    System.out.println(ovelse);
+                    break;
                 }
-                System.out.println(exercises);
-                trening.add(new Trening(workoutID, String.valueOf(res3.getDate("dato")), String.valueOf(res3.getTime("starttidspunkt")),
-                        res3.getInt("varighet"), res3.getInt("personligForm"), res3.getInt("prestasjon"), exercises));
+                res2.close();
             }
             exerciseSAtab.setItems(ovelse);
         } catch (Exception e) {
             System.out.println(e);
         }
     }
-    */
+
     //Category**********************************************************************************************************************
     @FXML
     private void createCategory() {

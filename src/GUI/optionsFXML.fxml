@@ -278,7 +278,7 @@
                                           <Insets top="50.0" />
                                        </padding>
                                     </TableView>
-                                    <Button mnemonicParsing="false" text="Refresh" AnchorPane.leftAnchor="650.0" AnchorPane.topAnchor="10.0" />
+                                    <Button mnemonicParsing="false" onAction="#refreshExerciseShowAll" text="Refresh" AnchorPane.leftAnchor="650.0" AnchorPane.topAnchor="10.0" />
                                  </children>
                               </AnchorPane>
                            </content>
