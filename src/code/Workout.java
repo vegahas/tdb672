@@ -119,4 +119,13 @@ public class Workout {
                 "("+workout_id+", "+exercise_id+", "+person_id+", '"+result+"');";
         return dbc.setData(stmt);
     }
+
+    public ResultSet getAllforAllWorkouts(int person_id){
+        String stmt = "SELECT * FROM treningsøkt " +
+                "INNER JOIN treningsøvelse ON treningsøkt.treningsID = treningsøvelse.treningsID " +
+                "AND treningsøkt.personID = treningsøvelse.personID " +
+                "INNER JOIN øvelse ON øvelse.øvelsesID = treningsøvelse.øvelsesID " +
+                "WHERE personID = "+person_id+";";
+        return dbc.getData(stmt);
+    }
 }

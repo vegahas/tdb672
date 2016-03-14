@@ -187,6 +187,12 @@ public class GUIConnect {
     public boolean connectExerciseWorkout(int person_id, int workout_id, int exercise_id, int result){
         return workout.connectExercise(person_id, workout_id, exercise_id, result);
     }
+
+    /* Get a ResultSet-object with all info for all workouts, not location-specific info */
+    public ResultSet getAllforAllWorkouts(int person_id){
+        return workout.getAllWorkouts(person_id);
+    }
+
     /* Get a ResultSet-object with id, date and start time for every workout */
     public ResultSet getAllWorkouts(int person_id){
         return workout.getAllWorkouts(person_id);
