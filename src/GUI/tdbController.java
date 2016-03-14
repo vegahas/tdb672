@@ -335,6 +335,7 @@ public class tdbController extends Controller{
             System.out.println(e.getMessage());
         }
     }
+    /*
     @FXML
     private void deleteExercise(){
         try {
@@ -349,6 +350,37 @@ public class tdbController extends Controller{
             System.out.println(e);
         }
 
+    }*/
+
+    @FXML
+    private void refreshExerciseShowAll() {
+        ObservableList<Ovelse> ovelse = FXCollections.observableArrayList();
+        ResultSet res = guiConnect
+        workoutIDcol.setCellValueFactory(new PropertyValueFactory<Trening, Integer>("workoutIDcol"));
+        workoutDateCol.setCellValueFactory(new PropertyValueFactory<Trening, String>("workoutDateCol"));
+        workoutStartCol.setCellValueFactory(new PropertyValueFactory<Trening, String>("workoutStartCol"));
+        workoutDurCol.setCellValueFactory(new PropertyValueFactory<Trening, Integer>("workoutDurCol"));
+        workoutShapeCol.setCellValueFactory(new PropertyValueFactory<Trening, Integer>("workoutShapeCol"));
+        workoutPerformnaceCol.setCellValueFactory(new PropertyValueFactory<Trening, Integer>("workoutPerformnaceCol"));
+        workoutExercisesCol.setCellValueFactory(new PropertyValueFactory<Trening, String>("workoutExercisesCol"));
+        try {
+            while (res.next()) {
+                String exercises = "";
+                Integer workoutID = res.getInt("treningsID");
+                System.out.println(workoutID);
+                ResultSet res2 = guiConnect.getExercisesForWorkout(finalUserID, workoutID);
+                ResultSet res3 = guiConnect.getWorkoutInfo(finalUserID, workoutID, true);
+                while (res2.next()) {
+                    exercises += res2.getInt("øvelsesID") + " " + res2.getString("navn") + "| ";
+                }
+                System.out.println(exercises);
+                trening.add(new Trening(workoutID, String.valueOf(res3.getDate("dato")), String.valueOf(res3.getTime("starttidspunkt")),
+                        res3.getInt("varighet"), res3.getInt("personligForm"), res3.getInt("prestasjon"), exercises));
+            }
+            workoutSAtab.setItems(trening);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
     //Category**********************************************************************************************************************
     @FXML
