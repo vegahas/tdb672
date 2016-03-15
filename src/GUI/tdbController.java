@@ -9,10 +9,7 @@ import javafx.scene.layout.AnchorPane;
 
 import java.sql.Date;
 import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by Jenny on 01.03.2016.
@@ -163,16 +160,41 @@ public class tdbController extends Controller{
     @FXML
     private Button diaryRefresh;
 
+    //GOAL
+    @FXML
+    private ListView<String> goalExercises;
+    @FXML
+    private DatePicker goalStartDate;
+    @FXML
+    private TextArea goalDescription;
+    @FXML
+    private TextArea goalInfo;
+    @FXML
+    private TableView<Maal> goalSAtable;
+    @FXML
+    private TableColumn<Maal, Integer> goalIDcol;
+    @FXML
+    private TableColumn<Maal, String> goalExerciseCol;
+    @FXML
+    private TableColumn<Maal, String> goalStartCol;
+    @FXML
+    private TableColumn<Maal, String> goalEndCol;
+    @FXML
+    private TableColumn<Maal, String> goalAchievedCol;
+    @FXML
+    private TableColumn<Maal, String> goalDescriptionCol;
+
     //Other
     private boolean initialize = true;
 
     private ObservableList<Integer> onetoten = FXCollections.observableArrayList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
     private ObservableList<Integer> temp = FXCollections.observableArrayList(0, 5, 10, 15, 20, 25, 30);
-    ObservableList<String> cat = FXCollections.observableArrayList();
+
 
     @FXML
     public void initialize() {
         if (initialize) {
+            ObservableList<String> cat = FXCollections.observableArrayList();
             workoutSpecTemp.setItems(temp);
             workoutPerformance.setItems(onetoten);
             workoutShape.setItems(onetoten);
@@ -469,6 +491,7 @@ public class tdbController extends Controller{
 
     }
 
+    //Diary******************************************************************************************************************
     @FXML
     private void refreshDiary(){
         ObservableList<Dagbok> dbok = FXCollections.observableArrayList();
@@ -483,6 +506,78 @@ public class tdbController extends Controller{
             }
             diaryTable.setItems(dbok);
         }catch(Exception e){
+            System.out.println(e);
+        }
+    }
+
+    //Goal********************************************************************************************************************
+    @FXML
+    private void createGoal(){
+        goalInfo.setVisible(true);
+        try{
+            System.out.println(goalExercises.getSelectionModel().getSelectedItem());
+            String selectedExercise = goalExercises.getSelectionModel().getSelectedItem();
+            int index = selectedExercise.indexOf(" "); //to make it work for for over 10 exercises
+            int selectedExerciseID = Integer.parseInt(selectedExercise.substring(0,index));
+            System.out.println(selectedExerciseID);
+            if (guiConnect.loadGoalToDB(new java.sql.Date(Date.valueOf(goalStartDate.getValue()).getTime()), false,
+                    new java.sql.Date(2019-01-01), goalDescription.getText(), finalUserID, selectedExerciseID)){
+                goalInfo.setText("Success");
+            }
+            else {
+                goalInfo.setText("Something is wrong");
+            }
+        }
+        catch (Exception e){
+            goalInfo.setText("Fail");
+            System.out.println(e);
+        }
+    }
+
+    @FXML
+    private void refreshGoalExercises(){
+        ObservableList<String> exs = FXCollections.observableArrayList();
+        try {
+            ResultSet res = guiConnect.getIDNamesExercise();
+            while (res.next()) {
+                exs.add(String.valueOf(res.getInt("øvelsesID")) + " " + res.getString("navn"));
+            }
+            goalExercises.setItems(exs);
+        }
+        catch (Exception e){
+            System.out.println(e);
+        }
+    }
+
+    @FXML
+    private void refreshGoalShowAll(){
+        goalIDcol.setCellValueFactory(new PropertyValueFactory<Maal, Integer>("goalIDcol"));
+        goalExerciseCol.setCellValueFactory(new PropertyValueFactory<Maal, String>("goalExerciseCol"));
+        goalStartCol.setCellValueFactory(new PropertyValueFactory<Maal, String>("goalStartCol"));
+        goalEndCol.setCellValueFactory(new PropertyValueFactory<Maal, String>("goalEndCol"));
+        goalAchievedCol.setCellValueFactory(new PropertyValueFactory<Maal, String>("goalAchievedCol"));
+        goalDescriptionCol.setCellValueFactory(new PropertyValueFactory<Maal, String>("goalDescriptionCol"));
+        ObservableList<Maal> goalss = FXCollections.observableArrayList();
+        List<Maal> goals = new ArrayList<>();
+        try {
+            ResultSet res = guiConnect.getAllGoals(finalUserID);
+            while (res.next()) {
+                Boolean achieved = res.getBoolean("oppnådd");
+                if (achieved) {
+                    goals.add(new Maal(res.getInt("målID"), res.getString("navn"), String.valueOf(res.getDate("startdato")),
+                            String.valueOf(res.getDate("sluttdato")), String.valueOf(achieved), res.getString("beskrivelse")));
+                }
+                else {
+                    goals.add(new Maal(res.getInt("målID"), res.getString("navn"), String.valueOf(res.getDate("startdato")),
+                            " - ", String.valueOf(achieved), res.getString("beskrivelse")));
+                }
+            }
+            res.close();
+            goalss.setAll(goals);
+            goalSAtable.setItems(goalss);
+        }
+        catch (Exception e){
+            System.out.println(e);
         }
     }
 
