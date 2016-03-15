@@ -82,7 +82,8 @@
                                                 </AnchorPane>
                                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                                                    <children>
-                                                      <ListView fx:id="workoutExercises" editable="true" layoutX="85.0" layoutY="-17.0" prefHeight="153.0" prefWidth="428.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                      <ListView fx:id="workoutExercises" editable="true" layoutX="85.0" layoutY="-17.0" prefHeight="153.0" prefWidth="428.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0" />
+                                                      <Button layoutX="624.0" layoutY="9.0" mnemonicParsing="false" onAction="#refreshWorkoutExercises" text="Refresh" />
                                                    </children></AnchorPane>
                                             </items>
                                           </SplitPane>
@@ -90,10 +91,10 @@
                                     </AnchorPane>
                                   <AnchorPane fx:id="exerciseTempPane" maxWidth="0.0" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                                        <children>
-                                          <TableView fx:id="workoutTemplates" layoutX="99.0" layoutY="60.0" prefHeight="822.0" prefWidth="362.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                          <TableView fx:id="workoutTemplates" layoutX="99.0" layoutY="60.0" onMouseClicked="#selectTemplate" prefHeight="822.0" prefWidth="362.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                             <columns>
-                                              <TableColumn id="workoutTemplatesID" fx:id="workoutTemplatesID" prefWidth="75.0" text="TemplateID" />
-                                              <TableColumn id="workoutTemplatesName" fx:id="workoutTemplatesName" prefWidth="75.0" text="Template Name" />
+                                              <TableColumn id="workoutTemplatesID" fx:id="workoutTemplatesID" prefWidth="75.0" text="TemplateName" />
+                                              <TableColumn id="workoutTemplatesName" fx:id="workoutTemplatesName" prefWidth="75.0" text="WorkoutID" />
                                             </columns>
                                              <columnResizePolicy>
                                                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -534,7 +535,7 @@
                                                 <Insets left="260.0" />
                                              </GridPane.margin>
                                           </Label>
-                                          <TextField fx:id="subcatName" maxWidth="180.0" prefHeight="27.0" prefWidth="78.0" promptText="Name, ID">
+                                          <TextField fx:id="subcatName" maxWidth="180.0" prefHeight="27.0" prefWidth="78.0" promptText="Name, categoryID">
                                              <GridPane.margin>
                                                 <Insets left="320.0" />
                                              </GridPane.margin>
@@ -575,6 +576,11 @@
                                           <Label layoutX="270.0" layoutY="90.0" text="Name:" GridPane.rowIndex="2">
                                              <GridPane.margin>
                                                 <Insets left="260.0" />
+                                             </GridPane.margin>
+                                          </Label>
+                                          <Label text="Categories: (use to fill in schema ^)">
+                                             <GridPane.margin>
+                                                <Insets left="50.0" top="160.0" />
                                              </GridPane.margin>
                                           </Label>
                                        </children>
