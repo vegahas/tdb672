@@ -42,7 +42,7 @@ public class Goals {
     }
 
     public ResultSet getAllGoals(int person_id){
-        String stmt = "SELECT målID, startdato, oppnådd, øvelse.navn FROM mål " +
+        String stmt = "SELECT målID, startdato, oppnådd, sluttdato, mål.beskrivelse, øvelse.navn FROM mål " +
                 "INNER JOIN øvelse ON mål.øvelsesID = øvelse.øvelsesID " +
                 "WHERE personID = "+person_id +" " +
                 "ORDER BY målID;";
