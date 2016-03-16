@@ -221,15 +221,18 @@ public class tdbController extends Controller{
                     String temp = "Kategori: " + Rs.getString("navn") + " ID: " + Rs.getString("katID");
                     cat.add(temp);
                 }
+                System.out.println("success2");
                 ResultSet RSres = guiConnect.getAllResults(finalUserID);
                 while(RSres.next()) {
-                    String temp2 = RSres.getString("øvelsesID");
-                    resultat.add(temp2);
+                    String temp =  "Workout ID: " + RSres.getString("treningsID") + " Result: " + RSres.getString("resultat");
+                    resultat.add(temp);
                 }
+                System.out.println("success3");
                 categoryList.setItems(cat);
                 WOResList.setItems(resultat);
+                System.out.println("success4");
             } catch (Exception e) {
-
+                System.out.println(e);
             }
             this.initialize = false;
         }
@@ -307,7 +310,8 @@ public class tdbController extends Controller{
                 for(String e:ex){
                     int index = e.indexOf(" "); //to make it work for for over 10 exercises
                     int selectedExerciseID = Integer.parseInt(e.substring(0,index));
-                    guiConnect.connectExerciseWorkout(finalUserID,workoutID, selectedExerciseID, 0);
+                    int result = (workoutShape.getValue()+workoutPerformance.getValue())/2;
+                    guiConnect.connectExerciseWorkout(finalUserID,workoutID, selectedExerciseID, result);
                     workoutInfo.setText("Success");
                 }
             }
