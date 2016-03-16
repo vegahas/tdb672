@@ -124,12 +124,19 @@ public class tdbController extends Controller{
     @FXML
     private Button diaryRefresh;
 
+    //RESULTS
+    @FXML
+    private ListView WOResList;
+    @FXML
+    private ListView EXResList;
+
     //Other
     private boolean initialize = true;
 
     private ObservableList<Integer> onetoten = FXCollections.observableArrayList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
     private ObservableList<Integer> temp = FXCollections.observableArrayList(0, 5, 10, 15, 20, 25, 30);
     ObservableList<String> cat = FXCollections.observableArrayList();
+    ObservableList<String> resultat = FXCollections.observableArrayList();
 
     @FXML
     public void initialize() {
@@ -153,8 +160,13 @@ public class tdbController extends Controller{
                     String temp = "Kategori: " + Rs.getString("navn") + " ID: " + Rs.getString("katID");
                     cat.add(temp);
                 }
+                ResultSet RSres = guiConnect.getAllResults(finalUserID);
+                while(RSres.next()) {
+                    String temp2 = RSres.getString("øvelsesID");
+                    resultat.add(temp2);
+                }
                 categoryList.setItems(cat);
-
+                WOResList.setItems(resultat);
             } catch (Exception e) {
 
             }

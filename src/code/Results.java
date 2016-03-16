@@ -10,10 +10,10 @@ public class Results {
     }
 
     public ResultSet getAllResults(int person_id){
-        String stmt = "SELECT øvelsesID, treningsID, dato, resultat FROM treningsøvelse " +
+        String stmt = "SELECT øvelsesID, treningsøvelse.treningsID, dato, resultat FROM treningsøvelse " +
                 "INNER JOIN treningsøkt ON treningsøkt.treningsID = treningsøvelse.øvelsesID " +
                 "AND treningsøkt.personID = treningsøvelse.personID " +
-                "WHERE personID = "+person_id+";";
+                "WHERE treningsøvelse.personID = "+person_id+";";
         return dbc.getData(stmt);
     }
 
