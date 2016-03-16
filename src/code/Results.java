@@ -10,7 +10,7 @@ public class Results {
     }
 
     public ResultSet getAllResults(int person_id){
-        String stmt = "SELECT resultat, treningsid FROM treningsøvelse";
+        String stmt = "SELECT resultat, treningsid, personID FROM treningsøvelse WHERE personID = " +person_id;
 
         /*
         String stmt = "SELECT øvelsesID, treningsøvelse.treningsID, dato, resultat FROM treningsøvelse " +
